@@ -1,14 +1,172 @@
 import React, { useState } from 'react';
 import axios from 'axios';
+
+const ALLOWED_FORMATS = ['jpg', 'jpeg', 'png', 'gif', 'webp', 'tiff', 'psd', 'raw', 'bmp', 'heif', 'indd'];
+
+function ImageConverterForm() {
+  const [files, setFiles] = useState([]);
+  const [toFormat, setToFormat] = useState('');
+
+  const handleFileChange = (event) => {
+    const selectedFiles = event.target.files;
+    const newFiles = [];
+    for (let i = 0; i < selectedFiles.length; i++) {
+      const file = selectedFiles[i];
+      if (ALLOWED_FORMATS.includes(file.name.split('.').pop().toLowerCase())) {
+        newFiles.push({ file: file, name: file.name, format: file.type.split('/').pop(), toFormat: '' });
+      }
+    }
+    setFiles([...files, ...newFiles]);
+  };
+
+  const handleToFormatChange = (event) => {
+    const newToFormat = event.target.value;
+    setToFormat(newToFormat);
+    const updatedFiles = [...files];
+    updatedFiles.forEach((file) => {
+      file.toFormat = newToFormat;
+    });
+    setFiles(updatedFiles);
+  };
+
+  const handleFileFormatChange = (index, event) => {
+    const newFileFormat = event.target.value;
+    const updatedFiles = [...files];
+    updatedFiles[index].toFormat = newFileFormat;
+    setFiles(updatedFiles);
+    setToFormat('');
+  };
+
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+    if (toFormat === '') {
+      alert('Please select a destination format');
+      return;
+    }
+    const formData = new FormData();
+    files.forEach((file) => {
+      formData.append('files[]', file.file);
+      formData.append('names[]', file.name);
+      formData.append('formats[]', file.format);
+      formData.append('toFormats[]', file.toFormat);
+    });
+    try {
+      // Show loading state while making axios post call
+      // Replace this with your own axios post call
+      await axios.post('/api/image-converter', formData);
+      alert('Conversion successful');
+    } catch (error) {
+      alert('Conversion failed');
+    }
+  };
+
+  return (
+    <form onSubmit={handleSubmit}>
+      <div>
+        <label htmlFor="file-input">Select Image Files:</label>
+        <br />
+        <input type="file" id="file-input" multiple onChange={handleFileChange} accept="image/*" />
+        <div style={{ display: 'flex', flexWrap: 'wrap', gap: '10px', marginTop: '10px' }}>
+          {files.map((file, index) => (
+            <div key={file.name} style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', border: '1px solid gray', padding: '10px' }}>
+              <div>{file.name}</div>
+              <select value={file.toFormat} onChange={(event) => handleFileFormatChange(index, event)}>
+                <option value="">Select Destination Format</option>
+                {ALLOWED_FORMATS.filter((format) => format !== file.format).map((format) => (
+                  <option key={format} value={format}>
+                    {format}
+                  </option>
+                ))}
+              </select>
+            </div>
+          ))}
+        </div>
+      </div>
+      <div>
+        <label htmlFor="to-format-select">Select Destination Format:</label>
+        <br />
+        <select id="to-format-select"
+      value={toFormat}
+      onChange={handleToFormatChange}
+      onClick={() => setToFormat('')}
+    >
+      <option value="">Select Destination Format</option>
+      {ALLOWED_FORMATS.filter((format) => format !== toFormat).map((format) => (
+        <option key={format} value={format}>
+          {format}
+        </option>
+      ))}
+    </select>
+  </div>
+  <div>
+    <button type="submit">{/* Show loading state while making axios post call */}</button>
+  </div>
+</form>
+);
+}
+
+export default ImageConverterForm;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+import React from 'react';
+import { useState } from 'react';
+import axios from 'axios';
+import Navbar from "./Navbar";
 import './styles.css';
+import JSZip from 'jszip';
+import ImageToPDFConverter from "./Image_to_pdf_converter";
 
 const ImageConverter = () => {
   const [fromFormat, setFromFormat] = useState('');
   const [toFormat, setToFormat] = useState('');
   const [file, setFile] = useState(null);
   const [error, setError] = useState('');
+  const [errorConvertedSection, setErrorConvertedSection] = useState('');
   const [convertedImg, setConvertedImg] = useState(null);
   const [loading, setLoading] = useState(false);
+  const [ConvertedFileName,setConvertedFileName] = useState('')
+
+  const clearStates = () => {
+      setFromFormat("");
+      setToFormat('');
+      setFile(null);
+      setError("");
+      setErrorConvertedSection("");
+      setConvertedImg(null);
+      setLoading(false);
+      setConvertedFileName('');
+      document.getElementById("input_file").value = "";
+    };
+
+
 
   const handleFromFormatChange = (event) => {
     setFromFormat(event.target.value);
@@ -25,13 +183,38 @@ const ImageConverter = () => {
     setError('');
   };
 
+  const getFileNameFromBase64 = (base64Data) => {
+    const base64Header = 'data:image/';
+    const base64Index = base64Data.indexOf(base64Header);
+    if (base64Index === -1) {
+      throw new Error('Invalid base64 format');
+    }
+    const extensionStartIndex = base64Index + base64Header.length;
+    const extensionEndIndex = base64Data.indexOf(';', extensionStartIndex);
+    if (extensionEndIndex === -1) {
+      throw new Error('Invalid base64 format');
+    }
+    const extension = base64Data.substring(extensionStartIndex, extensionEndIndex);
+    const fileName = `image.${extension}`;
+    return fileName;
+  };
+
+
+  const validatePreDownload = async () => {
+    if (!convertedImg) {
+      setErrorConvertedSection('Please convert image first ');
+      return;
+    }
+    }
+
   const handleConvert = async () => {
     if (!fromFormat || !toFormat || !file) {
       setError('Please fill all fields');
       return;
     }
 
-    if (fromFormat !== file.type) {
+    const fileFormat = file.type.split('/').pop();
+    if (fromFormat !== fileFormat) {
       setError('File format does not match with selected "From" format');
       return;
     }
@@ -40,17 +223,27 @@ const ImageConverter = () => {
 
     try {
       const formData = new FormData();
-      formData.append('fromFormat', fromFormat);
-      formData.append('toFormat', toFormat);
+      formData.append('source_format', fromFormat);
+      formData.append('target_format', toFormat);
       formData.append('file', file);
 
-      const response = await axios.post('/api/convert', formData, {
+      const response = await axios.post('convert_image/', formData, {
         headers: {
           'Content-Type': 'multipart/form-data',
         },
       });
 
-      setConvertedImg(response.data);
+      setConvertedImg(response.data.converted_image);
+        try {
+          let base64Data = response.data.converted_image;
+          base64Data = `data:${toFormat === 'jpeg' ? 'image/jpeg' : `image/${toFormat}`};base64,${base64Data}`;
+          const fileName = getFileNameFromBase64(base64Data);
+          setConvertedFileName(fileName);
+        } catch (error) {
+          console.error(error);
+          setConvertedFileName('');
+        }
+
     } catch (error) {
       console.error(error);
       setError('An error occurred during conversion');
@@ -60,7 +253,7 @@ const ImageConverter = () => {
   };
 
   const handleDownload = () => {
-    const url = window.URL.createObjectURL(new Blob([convertedImg]));
+    const url = `data:${toFormat === 'jpeg' ? 'image/jpeg' : `image/${toFormat}`};base64,${convertedImg}`;
     const link = document.createElement('a');
     link.href = url;
     link.setAttribute('download', `converted.${toFormat}`);
@@ -68,165 +261,141 @@ const ImageConverter = () => {
     link.click();
   };
 
+  const handleZipDownload = () => {
+    const zip = new JSZip();
+    let imgData = `data:${toFormat === 'jpeg' ? 'image/jpeg' : `image/${toFormat}`};base64,${convertedImg}`;
+    imgData = imgData.split(',')[1]; // get the base64 encoded image data
+    zip.file(ConvertedFileName, imgData, { base64: true }); // add the image data to the zip file
+    zip.generateAsync({ type: "base64" }) // generate the zip file as base64
+      .then(base64 => {
+        const link = document.createElement("a");
+        link.href = "data:application/zip;base64," + base64;
+        link.download = ConvertedFileName+".zip"; // set the file name
+        link.click(); // trigger the download
+      })
+      .catch(error => console.log(error));
+  };
+
+  const getBase64ImgData = () => {
+            data = `data:${toFormat === 'jpeg' ? 'image/jpeg' : `image/${toFormat}`};base64,${convertedImg}`;
+            return data
+  }
+
   return (
+  <div className="OuterMost">
+  <Navbar />
+
+  <div className="image-converter_outer">
+  <h2 style={{
+      background: "linear-gradient(to right, #FFB6C1, #87CEFA)",
+      WebkitBackgroundClip: "text",
+      WebkitTextFillColor: "transparent",
+     }}>
+      Image Format Converter
+    </h2>
     <div className="image-converter">
-      <h1>Image Format Converter</h1>
+       <div className="subsection">
       <div className="form">
-        <div className="form-group">
+
+      <div style={{ display: "flex", flexDirection: "row", flexWrap: "wrap" }}>
+
+                  <div className="form-group" style={{ flex: 1, margin: 5}}>
           <label htmlFor="from-format">From Format</label>
           <select id="from-format" value={fromFormat} onChange={handleFromFormatChange}>
-            <option value="">-- Select --</option>
-            <option value="image/png">PNG</option>
-            <option value="image/jpeg">JPEG</option>
-            <option value="image/gif">GIF</option>
-          </select>
-        </div>
-        <div className="form-group">
-          <label htmlFor="to-format">To Format</label>
-          <select id="to-format" value={toFormat} onChange={handleToFormatChange}>
             <option value="">-- Select --</option>
             <option value="png">PNG</option>
             <option value="jpeg">JPEG</option>
             <option value="gif">GIF</option>
+            <option value="webp">WEBP</option>
+            <option value="tiff">TIFF</option>
           </select>
         </div>
+
+        <div className="form-group" style={{ flex: 1, margin: 5}}>
+          <h3>Select format to convert all files</h3>
+    <select value={formatTo} onChange={handleFormatToChange}>
+      <option value=""></option>
+      {allowedFormats.map((format, index) => (
+        <option key={index} value={format}>{format.toUpperCase()}</option>
+      ))}
+    </select>
+        </div>
+               </div>
+
+
+
+
         <div className="form-group">
           <label htmlFor="file">Image File</label>
-          <input type="file" id="file" onChange={handleFileChange} />
+          <input type="file" accept="image/*" multiple onChange={handleFileInputChange} />
+        {files.length > 0 &&
+          <div>
+            <h3>Select format to convert each file</h3>
+            {files.map((file, index) => (
+              <div key={index}>
+                <p>{file.name}</p>
+                <select value={file.toFormat} onChange={(event) => handleToFormatChange(event, index)}>
+                  <option value=""></option>
+                  {allowedFormats.map((format, index) => (<option key={index} value={format}>{format.toUpperCase()}</option>
+              ))}
+            </select>
+          </div>
+        ))}
+      </div>
+    }
         </div>
         {error && <div className="error">{error}</div>}
-        <button onClick={handleConvert} disabled={loading}>
-          {loading ? 'Converting...' : 'Convert'}
-        </button>
+
+        <div style={{ display: "flex", flexDirection: "row", flexWrap: "wrap" }}>
+
+        <button disabled={isLoading} onClick={handleSubmit} style={{ flex: 1, margin: 5}}>{isLoading ? 'Converting...' : 'Convert'}</button>
+
+         <button onClick={clearStates} style={{flex: 1, margin: 5}}>
+                    Reset
+                  </button>
+               </div>
       </div>
-      {convertedImg && (
-        <div className="converted-image">
+      </div>
+
+      <div className="subsection">
+
+      <div className="form" style={{boxShadow: 'none'}}>
+        <div className="form-group">
+          {convertedImg !=null ?
+                <div className="converted-image">
+                <h2>Converted Image</h2>
+                  <p>{ConvertedFileName}</p>
+              <img className='converted_photo' src={`data:${toFormat === 'jpeg' ? 'image/jpeg' : `image/${toFormat}`};base64,${convertedImg}`} alt="Converted" />
+
+              <div style={{ display: "flex", flexDirection: "row", flexWrap: "wrap" }}>
+                  <button style={{ flex: 1, margin: 5 }} onClick={handleZipDownload}>Zip</button>
+                  <button style={{ flex: 1, margin: 5 }} onClick={handleDownload}>Download</button>
+                  <div style={{ flex: 1, margin: 5 }}>
+                      <ImageToPDFConverter images={images} />
+                    </div>
+               </div>
+            </div>
+          :<div className="converted-image">
           <h2>Converted Image</h2>
-      <img src={`data:${toFormat === 'jpeg' ? 'image/jpeg' : `image/${toFormat}`};base64,${convertedImg}`} alt="Converted" />
-      <button onClick={handleDownload}>Download</button>
-    </div>
-  )}
+                  <p></p>
+              <img className='converted_photo default-img' />
+              {errorConvertedSection && <div className="error">{errorConvertedSection}</div>}
+              <div style={{ display: "flex", flexDirection: "row", flexWrap: "wrap" }}>
+                  <button style={{ flex: 1, margin: 5}} onClick={validatePreDownload}>Zip</button>
+                  <button style={{flex: 1, margin: 5}} onClick={validatePreDownload}>
+                    Download
+                  </button>
+               </div>
+            </div>
+          }
+        </div>
+      </div>
+
+  </div>
+</div>
+</div>
 </div>
 );
 };
 
 export default ImageConverter;
-
-
-
-
-
-
-
-
-
-
-////CSS
-
-
-
-In this code, we have added CSS classes to style the components. You can create a CSS file named `ImageConverter.css` and add the following styles:
-
-```css
-.image-converter {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  margin: 2rem;
-}
-
-.form {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  background-color: #fff;
-  padding: 2rem;
-  border-radius: 1rem;
-  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
-  margin-bottom: 2rem;
-}
-
-.form-group {
-  display: flex;
-  flex-direction: column;
-  margin: 1rem;
-}
-
-label {
-  font-size: 1.2rem;
-  font-weight: bold;
-  margin-bottom: 0.5rem;
-}
-
-select,
-input[type='file'] {
-  font-size: 1.2rem;
-  padding: 0.5rem;
-  border: none;
-  border-radius: 0.5rem;
-  background-color: #f5f5f5;
-  margin-top: 0.5rem;
-}
-
-select {
-  width: 100%;
-}
-
-.error {
-  color: red;
-  font-size: 1.2rem;
-  margin: 1rem;
-}
-
-button {
-  font-size: 1.2rem;
-  padding: 0.5rem;
-  border: none;
-  border-radius: 0.5rem;
-  background-color: #1e90ff;
-  color: #fff;
-  margin: 1rem;
-  cursor: pointer;
-  transition: all 0.2s ease-in-out;
-}
-
-button:hover {
-  background-color: #007fff;
-}
-
-.converted-image {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  margin-top: 2rem;
-}
-
-.converted-image h2 {
-  font-size: 1.5rem;
-  margin-bottom: 1rem;
-}
-
-.converted-image img {
-  max-width: 100%;
-  border-radius: 1rem;
-  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
-  margin-bottom: 1rem;
-}
-
-.converted-image button {
-  font-size: 1.2rem;
-  padding: 0.5rem;
-  border: none;
-  border-radius: 0.5rem;
-  background-color: #1e90ff;
-  color: #fff;
-  cursor: pointer;
-  transition: all 0.2s ease-in-out;
-}
-
-.converted-image button:hover {
-  background-color: #007fff;
-}
