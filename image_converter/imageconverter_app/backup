@@ -1,0 +1,232 @@
+import React, { useState } from 'react';
+import axios from 'axios';
+import './styles.css';
+
+const ImageConverter = () => {
+  const [fromFormat, setFromFormat] = useState('');
+  const [toFormat, setToFormat] = useState('');
+  const [file, setFile] = useState(null);
+  const [error, setError] = useState('');
+  const [convertedImg, setConvertedImg] = useState(null);
+  const [loading, setLoading] = useState(false);
+
+  const handleFromFormatChange = (event) => {
+    setFromFormat(event.target.value);
+    setError('');
+  };
+
+  const handleToFormatChange = (event) => {
+    setToFormat(event.target.value);
+    setError('');
+  };
+
+  const handleFileChange = (event) => {
+    setFile(event.target.files[0]);
+    setError('');
+  };
+
+  const handleConvert = async () => {
+    if (!fromFormat || !toFormat || !file) {
+      setError('Please fill all fields');
+      return;
+    }
+
+    if (fromFormat !== file.type) {
+      setError('File format does not match with selected "From" format');
+      return;
+    }
+
+    setLoading(true);
+
+    try {
+      const formData = new FormData();
+      formData.append('fromFormat', fromFormat);
+      formData.append('toFormat', toFormat);
+      formData.append('file', file);
+
+      const response = await axios.post('/api/convert', formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+        },
+      });
+
+      setConvertedImg(response.data);
+    } catch (error) {
+      console.error(error);
+      setError('An error occurred during conversion');
+    }
+
+    setLoading(false);
+  };
+
+  const handleDownload = () => {
+    const url = window.URL.createObjectURL(new Blob([convertedImg]));
+    const link = document.createElement('a');
+    link.href = url;
+    link.setAttribute('download', `converted.${toFormat}`);
+    document.body.appendChild(link);
+    link.click();
+  };
+
+  return (
+    <div className="image-converter">
+      <h1>Image Format Converter</h1>
+      <div className="form">
+        <div className="form-group">
+          <label htmlFor="from-format">From Format</label>
+          <select id="from-format" value={fromFormat} onChange={handleFromFormatChange}>
+            <option value="">-- Select --</option>
+            <option value="image/png">PNG</option>
+            <option value="image/jpeg">JPEG</option>
+            <option value="image/gif">GIF</option>
+          </select>
+        </div>
+        <div className="form-group">
+          <label htmlFor="to-format">To Format</label>
+          <select id="to-format" value={toFormat} onChange={handleToFormatChange}>
+            <option value="">-- Select --</option>
+            <option value="png">PNG</option>
+            <option value="jpeg">JPEG</option>
+            <option value="gif">GIF</option>
+          </select>
+        </div>
+        <div className="form-group">
+          <label htmlFor="file">Image File</label>
+          <input type="file" id="file" onChange={handleFileChange} />
+        </div>
+        {error && <div className="error">{error}</div>}
+        <button onClick={handleConvert} disabled={loading}>
+          {loading ? 'Converting...' : 'Convert'}
+        </button>
+      </div>
+      {convertedImg && (
+        <div className="converted-image">
+          <h2>Converted Image</h2>
+      <img src={`data:${toFormat === 'jpeg' ? 'image/jpeg' : `image/${toFormat}`};base64,${convertedImg}`} alt="Converted" />
+      <button onClick={handleDownload}>Download</button>
+    </div>
+  )}
+</div>
+);
+};
+
+export default ImageConverter;
+
+
+
+
+
+
+
+
+
+
+////CSS
+
+
+
+In this code, we have added CSS classes to style the components. You can create a CSS file named `ImageConverter.css` and add the following styles:
+
+```css
+.image-converter {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin: 2rem;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background-color: #fff;
+  padding: 2rem;
+  border-radius: 1rem;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+  margin-bottom: 2rem;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  margin: 1rem;
+}
+
+label {
+  font-size: 1.2rem;
+  font-weight: bold;
+  margin-bottom: 0.5rem;
+}
+
+select,
+input[type='file'] {
+  font-size: 1.2rem;
+  padding: 0.5rem;
+  border: none;
+  border-radius: 0.5rem;
+  background-color: #f5f5f5;
+  margin-top: 0.5rem;
+}
+
+select {
+  width: 100%;
+}
+
+.error {
+  color: red;
+  font-size: 1.2rem;
+  margin: 1rem;
+}
+
+button {
+  font-size: 1.2rem;
+  padding: 0.5rem;
+  border: none;
+  border-radius: 0.5rem;
+  background-color: #1e90ff;
+  color: #fff;
+  margin: 1rem;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+}
+
+button:hover {
+  background-color: #007fff;
+}
+
+.converted-image {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin-top: 2rem;
+}
+
+.converted-image h2 {
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
+}
+
+.converted-image img {
+  max-width: 100%;
+  border-radius: 1rem;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+  margin-bottom: 1rem;
+}
+
+.converted-image button {
+  font-size: 1.2rem;
+  padding: 0.5rem;
+  border: none;
+  border-radius: 0.5rem;
+  background-color: #1e90ff;
+  color: #fff;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+}
+
+.converted-image button:hover {
+  background-color: #007fff;
+}

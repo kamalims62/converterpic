@@ -1,0 +1,223 @@
+LINK - https://medium.com/analytics-vidhya/django-react-integration-37acc304e984
+
+In this blog -
+Problems that occur while integrating React directly into Django.
+Why to use Webpack and Webpack Loaders?
+Steps to integrate.
+
+Pre-read -
+This blog is for people who would want to learn about integrating React into Django or for people who could not understand why certain things are done the way they are done to integrate React with Django.
+
+Quick note -
+This integration of Django and React is one of the many possible methods. Also this uses yarn as the package manager. You can replace the yarn commands with npm commands and it should still run fine.
+
+Also you should know how to create a virtual environment to ensure no version conflicts arises in future. This integration will be using pyenv to create and modify the virtual environment. If you wish to use venv or any other method to create a development environment, you can.
+If you do not know how to use pyenv you can learn how to install and use it from here.
+
+Finally, this integration uses terminal code, i.e. bash scripting. If you are developing on windows, it is highly recommended that you start using Windows Subsystem For Linux if not already using. No root required. Having a Linux system inside your windows OS, makes it a lot easier for development. If you need assistance in installing WSL for yourself, find it here.
+
+If at any point you mess up with the folder structure, you can find the complete Django-React-Integration here. Have a look at it whenever needed.
+
+Problems when integrating React directly into Django.
+As you might already know that Django uses a different approach while handling the static files for your project. Paths to all of the static files are supposed to be known by Django. While this is a great way of managing static files, but when it comes to react, you know that there is plenty of JavaScript written and modifying the path to all of the components is definitely a tiresome, time consuming and not so programmers way of getting things done.
+
+Thus, to manage and automate all of these we use bundlers and loaders.
+
+Why to use Webpack and Webpack-Loaders?
+Webpack is a JavaScript written Static module bundler. What it does is, whenever you import { some file } from "some/path"; Webpack builds a dependency graph which maps every module your project needs and generates one or more bundles at a specific location.
+
+That is, it traces all the imports and checks if a certain import file is of a particular file extension. If yes, it creates a new bundle including all of the imports at one location. Now to convert these files into JavaScript Webpack-Loaders are used.
+
+Loaders can transform files from a different language (like TypeScript and CSS) to JavaScript.
+
+And if you place this single file generated using Webpack and Webpack loaders in your static files directory, your Django project will be able to access these files.
+
+Steps to integrate Django and React
+Make sure you have NodeJS and yarn installed. Need assistance?
+
+How to install NodeJS and npm?
+How to install Yarn using npm?
+
+To ensure installation run the following test commands.
+
+node --version
+
+npm --version
+
+yarn --version
+
+If each of the above commands return some version of node, npm and yarn respectively the installation was successful, else try reinstalling.
+
+Starting up a virtual environment.
+
+Create a virtual environment or follow the following code to start and activate one using pyenv. Make sure you run these in the required project directory.
+
+pyenv virtualenv system venv
+
+Above command creates a virtual environment in the project directory.
+
+pyenv activate venv
+
+Above command activates the virtual environment.
+
+Installing Django
+
+Now install Django.
+Use this command to install djangorestframework and other python packages, whenever required.
+
+python -m pip install django
+
+Using the above command ensures that the installation is done for the virtual environment and not for the root python.
+
+Starting a project in Django followed by an app named frontend.
+
+Start a Django project using
+
+django-admin startproject <project_name>
+
+Change directory to the project you just created using
+
+cd <project_name>
+
+Now start a Django app using
+
+django-admin startapp frontend
+
+Adding the app to the settings file
+
+Go to <project_name>/settings.py and add the app you just created to the installed apps list.
+
+
+Creating a url for the frontend to be shown.
+
+In the <project_name>/urls.py add a new url which includes frontend.urls
+
+
+Now head in to frontend/ and create a new file named urls.py
+
+Move into frontend/urls.py and add a view to the url you created.
+
+
+Creating a function based view for the url.
+
+Now that you have added a url for the frontend, its now time to create the view dedicated to it.
+
+Go to frontend/views.py and create a function based view
+
+
+Notice the template used here frontend/index.html . This is the template we’ll create in the next step. Also, remember that you need a separate templates directory for template files.
+
+Creating the folder structure for Templates, Static files and React for frontend
+
+In <project_name>/frontend make a folder named templates
+
+Now create another folder named frontend and create index.html in it.
+
+Your frontend/templates/frontend/index.html file should be like this.
+
+
+You can alter the contents later. Notice that we added static files css/style.css and frontend/main.js . This is the best time to create the static directory structure.
+
+In <project_name>/frontend make a folder named static
+
+Now create three folders named frontend css images in it.
+
+Now Django can access these static files for you templates.
+
+Now we shall create another folder structure completely for React and Webpack to be used.
+
+Under <project_name>/frontend add another folder named src
+
+In frontend/src create index.js .
+
+This will be the entry point for Webpack to start creating the dependency graph.
+
+Now add a components folder to frontend/src and add a file named App.js in it.
+
+You should now have following file paths in your directory.
+
+frontend/src/index.js and frontend/src/components/App.js .
+
+With this your file structure is almost ready and you should now have a look at the folder structure and find similarities with React’s default file structure.
+
+Initialising yarn and installing required dependencies
+
+Now move to the directory <project_name>/frontend if not already in and follow these commands to install the required dependencies.
+
+Firstly, initialise yarn with the following command
+
+yarn init -y
+
+next, install webpack
+
+yarn add webpack webpack-cli --dev
+
+now install babel and other required babel dependencies
+
+yarn add @babel/core @babel/preset-react @babel/preset-env --dev
+
+now install required Webpack loaders
+
+yarn add babel-loader css-loader style-loader --dev
+
+install react and react-dom
+
+yarn add react react-dom --dev
+
+Finally we’ll add a few dependencies that are required for using react-router and class based components in react.
+
+yarn add react-router-dom @babel/plugin-proposal-class-properties
+
+Now frontend/package.json must have automatically been created for you.
+
+Configuring Webpack and Babel
+
+In <project_name>/frontend create a file webpack.config.js
+
+
+This is what your webpack.config.js should have.
+
+What happens here is that, we’ve defined the —
+
+entry point for babel to start building the dependency graph.
+output point which is inside static/frontend. If you recall, this is the location of the JavaScript file we added in the templates/frontend/index.html
+Next we define rules for Webpack to test the extensions ( .js|.jsx and .css in this case ) of all the files that we import and use the instructed loaders to convert them to JavaScript and bundle them.
+We also instructed Webpack to ignore node_modules
+If you need some more help about the configurations, you can find a very well instructed documentation here.
+
+Lastly we need to configure a few instructions for babel.
+
+In <project_name>/frontend create a file babel.config.json
+
+
+What this does is adds a few instructions such as required presets and plugins for babel-loader to use.
+
+@babel/preset-react helps in transpiling jsx into classic JavaScript.
+
+Finally, whenever you run webpack in the frontend directory, you’ll see that it will create a bundle in static/frontend named main.js
+
+To make webpack automatically look for changes and bundle, add the following scripts in your frontend/package.json
+
+
+Your package.json should be similar to the one above.
+
+We are done with configuring all the requirements for React to run with Django. Now add import { App } from "./components/App"; in frontend/index.js
+
+And copy the following code into your frontend/src/components/App.js
+
+
+And you are all set.
+
+Change directory to the project root ( where you can find manage.py ) and run the following commands in your terminal.
+
+python manage.py migrate
+
+And then
+
+python manage.py runserver
+
+In a different terminal head to the directory <project_name>/frontend and run the following command for Webpack to listen and create bundles as you work.
+
+yarn run dev
+
+With this your have successfully integrated React as a frontend for your Django project.
