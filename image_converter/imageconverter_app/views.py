@@ -49,22 +49,20 @@ def convert_image(request):
         if target_format not in allowed_target_format:
             return Response({'error': 'Invalid target format'}, status=400)
 
-
-    if target_format == 'jpg':
-        target_format = 'jpeg'
-
     for index in range(len(image_file)):
         source_format = fromFormat[index]
         target_format = toFormat[index]
+        if target_format == 'jpg':
+            target_format = 'jpeg'
 
         function_name = conversion_function_mapping[source_format][target_format]
         # Call the function from conversion_functions.py module based on source_format, target_format & help of
         # conversion_function_mapping
         with PilImage.open(image_file[index]) as pil_image:
             converted_image_str = eval(f"{function_name}(pil_image, source_format, target_format)")
+            print(type(converted_image_str))
             converted_images.append(converted_image_str)
 
-    print(converted_images)
     print(len(converted_images))
     response_data = {'converted_image': converted_images}
     return Response(response_data, status=200)

@@ -19,6 +19,7 @@ def convert_image_to_target(pil_image, source_format, target_format):
     return converted_image_str
 
 
+
 def convert_jpg_to_png(pil_image, source_format, target_format):
     return convert_jpeg_to_png(pil_image, source_format, target_format)
 
@@ -31,31 +32,31 @@ def convert_jpg_to_gif(pil_image, source_format, target_format):
     return convert_jpeg_to_gif(pil_image, source_format, target_format)
 
 
-def convert_jpg_to_webp():
+def convert_jpg_to_webp(pil_image, source_format, target_format):
     pass
 
 
-def convert_jpg_to_tiff():
+def convert_jpg_to_tiff(pil_image, source_format, target_format):
     pass
 
 
-def convert_jpg_to_psd():
+def convert_jpg_to_psd(pil_image, source_format, target_format):
     pass
 
 
-def convert_jpg_to_raw():
+def convert_jpg_to_raw(pil_image, source_format, target_format):
     pass
 
 
-def convert_jpg_to_bmp():
+def convert_jpg_to_bmp(pil_image, source_format, target_format):
     pass
 
 
-def convert_jpg_to_heif():
+def convert_jpg_to_heif(pil_image, source_format, target_format):
     pass
 
 
-def convert_jpg_to_indd():
+def convert_jpg_to_indd(pil_image, source_format, target_format):
     pass
 
 
@@ -81,23 +82,23 @@ def convert_jpeg_to_tiff(pil_image, source_format, target_format):
     return convert_image_to_target(pil_image, source_format, target_format)
 
 
-def convert_jpeg_to_psd():
+def convert_jpeg_to_psd(pil_image, source_format, target_format):
     pass
 
 
-def convert_jpeg_to_raw():
+def convert_jpeg_to_raw(pil_image, source_format, target_format):
     pass
 
 
-def convert_jpeg_to_bmp():
+def convert_jpeg_to_bmp(pil_image, source_format, target_format):
     pass
 
 
-def convert_jpeg_to_heif():
+def convert_jpeg_to_heif(pil_image, source_format, target_format):
     pass
 
 
-def convert_jpeg_to_indd():
+def convert_jpeg_to_indd(pil_image, source_format, target_format):
     pass
 
 
@@ -128,23 +129,23 @@ def convert_png_to_tiff(pil_image, source_format, target_format):
     return convert_image_to_target(pil_image, source_format, target_format)
 
 
-def convert_png_to_psd():
+def convert_png_to_psd(pil_image, source_format, target_format):
     pass
 
 
-def convert_png_to_raw():
+def convert_png_to_raw(pil_image, source_format, target_format):
     pass
 
 
-def convert_png_to_bmp():
+def convert_png_to_bmp(pil_image, source_format, target_format):
     pass
 
 
-def convert_png_to_heif():
+def convert_png_to_heif(pil_image, source_format, target_format):
     pass
 
 
-def convert_png_to_indd():
+def convert_png_to_indd(pil_image, source_format, target_format):
     pass
 
 
@@ -170,23 +171,23 @@ def convert_gif_to_tiff(pil_image, source_format, target_format):
     return convert_image_to_target(pil_image, source_format, target_format)
 
 
-def convert_gif_to_psd():
+def convert_gif_to_psd(pil_image, source_format, target_format):
     pass
 
 
-def convert_gif_to_raw():
+def convert_gif_to_raw(pil_image, source_format, target_format):
     pass
 
 
-def convert_gif_to_bmp():
+def convert_gif_to_bmp(pil_image, source_format, target_format):
     pass
 
 
-def convert_gif_to_heif():
+def convert_gif_to_heif(pil_image, source_format, target_format):
     pass
 
 
-def convert_gif_to_indd():
+def convert_gif_to_indd(pil_image, source_format, target_format):
     pass
 
 
@@ -213,27 +214,27 @@ def convert_webp_to_tiff(pil_image, source_format, target_format):
     return convert_image_to_target(pil_image, source_format, target_format)
 
 
-def convert_webp_to_psd():
+def convert_webp_to_psd(pil_image, source_format, target_format):
     pass
 
 
-def convert_webp_to_raw():
+def convert_webp_to_raw(pil_image, source_format, target_format):
     pass
 
 
-def convert_webp_to_bmp():
+def convert_webp_to_bmp(pil_image, source_format, target_format):
     pass
 
 
-def convert_webp_to_heif():
+def convert_webp_to_heif(pil_image, source_format, target_format):
     pass
 
 
-def convert_webp_to_indd():
+def convert_webp_to_indd(pil_image, source_format, target_format):
     pass
 
 
-def convert_tiff_to_jpg():
+def convert_tiff_to_jpg(pil_image, source_format, target_format):
     pass
 
 
@@ -256,138 +257,170 @@ def convert_tiff_to_webp(pil_image, source_format, target_format):
     return convert_image_to_target(pil_image, source_format, target_format)
 
 
-def convert_tiff_to_psd():
+def convert_tiff_to_psd(pil_image, source_format, target_format):
     pass
 
 
-def convert_tiff_to_raw():
+def convert_tiff_to_raw(pil_image, source_format, target_format):
     pass
 
 
-def convert_tiff_to_bmp():
+def convert_tiff_to_bmp(pil_image, source_format, target_format):
     pass
 
 
-def convert_tiff_to_heif():
+def convert_tiff_to_heif(pil_image, source_format, target_format):
     pass
 
 
-def convert_tiff_to_indd():
+def convert_tiff_to_indd(pil_image, source_format, target_format):
     pass
 
 
-def convert_psd_to_jpg():
+def convert_psd_to_jpg(pil_image, source_format, target_format):
     pass
 
 
-def convert_psd_to_jpeg():
+def convert_psd_to_jpeg(pil_image, source_format, target_format):
     pass
 
 
-def convert_psd_to_png():
+def convert_psd_to_png(pil_image, source_format, target_format):
     pass
 
 
-def convert_psd_to_gif():
+def convert_psd_to_gif(pil_image, source_format, target_format):
     pass
 
 
-def convert_psd_to_webp():
+def convert_psd_to_webp(pil_image, source_format, target_format):
     pass
 
 
-def convert_psd_to_tiff():
+def convert_psd_to_tiff(pil_image, source_format, target_format):
     pass
 
 
-def convert_psd_to_raw():
+def convert_psd_to_raw(pil_image, source_format, target_format):
     pass
 
 
-def convert_psd_to_bmp():
+def convert_psd_to_bmp(pil_image, source_format, target_format):
     pass
 
 
-def convert_psd_to_heif():
+def convert_psd_to_heif(pil_image, source_format, target_format):
     pass
 
 
-def convert_psd_to_indd():
+def convert_psd_to_indd(pil_image, source_format, target_format):
     pass
 
 
-def convert_raw_to_jpg():
+def convert_raw_to_jpg(pil_image, source_format, target_format):
     pass
 
 
-def convert_raw_to_jpeg():
+def convert_raw_to_jpeg(pil_image, source_format, target_format):
     pass
 
 
-def convert_raw_to_png():
+def convert_raw_to_png(pil_image, source_format, target_format):
     pass
 
 
-def convert_raw_to_gif():
+def convert_raw_to_gif(pil_image, source_format, target_format):
     pass
 
-def convert_heif_to_jpg():
+def convert_heif_to_jpg(pil_image, source_format, target_format):
     pass
 
-def convert_heif_to_jpeg():
+def convert_heif_to_jpeg(pil_image, source_format, target_format):
     pass
 
-def convert_heif_to_png():
+def convert_heif_to_png(pil_image, source_format, target_format):
     pass
 
-def convert_heif_to_gif():
+def convert_heif_to_gif(pil_image, source_format, target_format):
     pass
 
-def convert_heif_to_webp():
+def convert_heif_to_webp(pil_image, source_format, target_format):
     pass
 
-def convert_heif_to_tiff():
+def convert_heif_to_tiff(pil_image, source_format, target_format):
     pass
 
-def convert_heif_to_psd():
+def convert_heif_to_psd(pil_image, source_format, target_format):
     pass
 
-def convert_heif_to_raw():
+def convert_heif_to_raw(pil_image, source_format, target_format):
     pass
 
-def convert_heif_to_bmp():
+def convert_heif_to_bmp(pil_image, source_format, target_format):
     pass
 
-def convert_heif_to_indd():
+def convert_heif_to_indd(pil_image, source_format, target_format):
     pass
 
-def convert_indd_to_jpg():
+def convert_indd_to_jpg(pil_image, source_format, target_format):
     pass
 
-def convert_indd_to_jpeg():
+def convert_indd_to_jpeg(pil_image, source_format, target_format):
     pass
 
-def convert_indd_to_png():
+def convert_indd_to_png(pil_image, source_format, target_format):
     pass
 
-def convert_indd_to_gif():
+def convert_indd_to_gif(pil_image, source_format, target_format):
     pass
 
-def convert_indd_to_webp():
+def convert_indd_to_webp(pil_image, source_format, target_format):
     pass
 
-def convert_indd_to_tiff():
+def convert_indd_to_tiff(pil_image, source_format, target_format):
     pass
 
-def convert_indd_to_psd():
+def convert_indd_to_psd(pil_image, source_format, target_format):
     pass
 
-def convert_indd_to_raw():
+def convert_indd_to_raw(pil_image, source_format, target_format):
     pass
 
-def convert_indd_to_bmp():
+def convert_indd_to_bmp(pil_image, source_format, target_format):
     pass
 
-def convert_indd_to_heif():
+def convert_indd_to_heif(pil_image, source_format, target_format):
     pass
 
+def convert_png_to_png(pil_image, source_format, target_format):
+    pass
+
+def convert_jpg_to_jpg(pil_image, source_format, target_format):
+    pass
+
+def convert_jpeg_to_jpeg(pil_image, source_format, target_format):
+    pass
+
+def convert_gif_to_gif(pil_image, source_format, target_format):
+    pass
+
+def convert_webp_to_webp(pil_image, source_format, target_format):
+    pass
+
+def convert_tiff_to_tiff(pil_image, source_format, target_format):
+    pass
+
+def convert_psd_to_psd(pil_image, source_format, target_format):
+    pass
+
+def convert_raw_to_raw(pil_image, source_format, target_format):
+    pass
+
+def convert_bmp_to_bmp(pil_image, source_format, target_format):
+    pass
+
+def convert_heif_to_heif(pil_image, source_format, target_format):
+    pass
+
+def convert_indd_to_indd(pil_image, source_format, target_format):
+    pass

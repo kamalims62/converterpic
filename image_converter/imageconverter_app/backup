@@ -7,6 +7,8 @@ function ImageConverterForm() {
   const [files, setFiles] = useState([]);
   const [toFormat, setToFormat] = useState('');
 
+
+
   const handleFileChange = (event) => {
     const selectedFiles = event.target.files;
     const newFiles = [];
