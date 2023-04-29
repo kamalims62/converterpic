@@ -43,7 +43,7 @@ def convert_image(request):
             if 'format' in key:
                 fromFormat.append(value)
 
-    allowed_target_format = ['jpg', 'jpeg', 'png', 'gif', 'webp', 'tiff', 'psd', 'raw', 'bmp', 'heif', 'indd']
+    allowed_target_format = ['jpg', 'jpeg', 'png', 'gif', 'webp', 'tiff', 'bmp']
 
     for target_format in toFormat:
         if target_format not in allowed_target_format:

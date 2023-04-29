@@ -33,23 +33,26 @@ def convert_jpg_to_gif(pil_image, source_format, target_format):
 
 
 def convert_jpg_to_webp(pil_image, source_format, target_format):
-    pass
+    pil_image = convert_to_rgb_if_not(pil_image)
+    return convert_image_to_target(pil_image, source_format, target_format)
 
 
 def convert_jpg_to_tiff(pil_image, source_format, target_format):
-    pass
+    pil_image = convert_to_rgb_if_not(pil_image)
+    return convert_image_to_target(pil_image, source_format, target_format)
 
 
 def convert_jpg_to_psd(pil_image, source_format, target_format):
     pass
 
 
-def convert_jpg_to_raw(pil_image, source_format, target_format):
+def convert_jpg_to_arw(pil_image, source_format, target_format):
     pass
 
 
 def convert_jpg_to_bmp(pil_image, source_format, target_format):
-    pass
+    pil_image = convert_to_rgb_if_not(pil_image)
+    return convert_image_to_target(pil_image, source_format, target_format)
 
 
 def convert_jpg_to_heif(pil_image, source_format, target_format):
@@ -82,16 +85,13 @@ def convert_jpeg_to_tiff(pil_image, source_format, target_format):
     return convert_image_to_target(pil_image, source_format, target_format)
 
 
-def convert_jpeg_to_psd(pil_image, source_format, target_format):
-    pass
-
-
-def convert_jpeg_to_raw(pil_image, source_format, target_format):
+def convert_jpeg_to_arw(pil_image, source_format, target_format):
     pass
 
 
 def convert_jpeg_to_bmp(pil_image, source_format, target_format):
-    pass
+    pil_image = convert_to_rgb_if_not(pil_image)
+    return convert_image_to_target(pil_image, source_format, target_format)
 
 
 def convert_jpeg_to_heif(pil_image, source_format, target_format):
@@ -133,12 +133,13 @@ def convert_png_to_psd(pil_image, source_format, target_format):
     pass
 
 
-def convert_png_to_raw(pil_image, source_format, target_format):
+def convert_png_to_arw(pil_image, source_format, target_format):
     pass
 
 
 def convert_png_to_bmp(pil_image, source_format, target_format):
-    pass
+    pil_image = convert_to_rgb_if_not(pil_image)
+    return convert_image_to_target(pil_image, source_format, target_format)
 
 
 def convert_png_to_heif(pil_image, source_format, target_format):
@@ -163,7 +164,8 @@ def convert_gif_to_jpeg(pil_image, source_format, target_format):
 
 
 def convert_gif_to_webp(pil_image, source_format, target_format):
-    return convert_png_to_webp(pil_image, source_format, target_format)
+    pil_image = convert_to_rgb_if_not(pil_image)
+    return convert_image_to_target(pil_image, source_format, target_format)
 
 
 def convert_gif_to_tiff(pil_image, source_format, target_format):
@@ -175,12 +177,13 @@ def convert_gif_to_psd(pil_image, source_format, target_format):
     pass
 
 
-def convert_gif_to_raw(pil_image, source_format, target_format):
+def convert_gif_to_arw(pil_image, source_format, target_format):
     pass
 
 
 def convert_gif_to_bmp(pil_image, source_format, target_format):
-    pass
+    pil_image = convert_to_rgb_if_not(pil_image)
+    return convert_image_to_target(pil_image, source_format, target_format)
 
 
 def convert_gif_to_heif(pil_image, source_format, target_format):
@@ -218,12 +221,13 @@ def convert_webp_to_psd(pil_image, source_format, target_format):
     pass
 
 
-def convert_webp_to_raw(pil_image, source_format, target_format):
+def convert_webp_to_arw(pil_image, source_format, target_format):
     pass
 
 
 def convert_webp_to_bmp(pil_image, source_format, target_format):
-    pass
+    pil_image = convert_to_rgb_if_not(pil_image)
+    return convert_image_to_target(pil_image, source_format, target_format)
 
 
 def convert_webp_to_heif(pil_image, source_format, target_format):
@@ -235,7 +239,8 @@ def convert_webp_to_indd(pil_image, source_format, target_format):
 
 
 def convert_tiff_to_jpg(pil_image, source_format, target_format):
-    pass
+    pil_image = convert_to_rgb_if_not(pil_image)
+    return convert_image_to_target(pil_image, source_format, target_format)
 
 
 def convert_tiff_to_jpeg(pil_image, source_format, target_format):
@@ -261,12 +266,13 @@ def convert_tiff_to_psd(pil_image, source_format, target_format):
     pass
 
 
-def convert_tiff_to_raw(pil_image, source_format, target_format):
+def convert_tiff_to_arw(pil_image, source_format, target_format):
     pass
 
 
 def convert_tiff_to_bmp(pil_image, source_format, target_format):
-    pass
+    pil_image = convert_to_rgb_if_not(pil_image)
+    return convert_image_to_target(pil_image, source_format, target_format)
 
 
 def convert_tiff_to_heif(pil_image, source_format, target_format):
@@ -301,7 +307,7 @@ def convert_psd_to_tiff(pil_image, source_format, target_format):
     pass
 
 
-def convert_psd_to_raw(pil_image, source_format, target_format):
+def convert_psd_to_arw(pil_image, source_format, target_format):
     pass
 
 
@@ -317,19 +323,19 @@ def convert_psd_to_indd(pil_image, source_format, target_format):
     pass
 
 
-def convert_raw_to_jpg(pil_image, source_format, target_format):
+def convert_arw_to_jpg(pil_image, source_format, target_format):
     pass
 
 
-def convert_raw_to_jpeg(pil_image, source_format, target_format):
+def convert_arw_to_jpeg(pil_image, source_format, target_format):
     pass
 
 
-def convert_raw_to_png(pil_image, source_format, target_format):
+def convert_arw_to_png(pil_image, source_format, target_format):
     pass
 
 
-def convert_raw_to_gif(pil_image, source_format, target_format):
+def convert_arw_to_gif(pil_image, source_format, target_format):
     pass
 
 def convert_heif_to_jpg(pil_image, source_format, target_format):
@@ -353,7 +359,7 @@ def convert_heif_to_tiff(pil_image, source_format, target_format):
 def convert_heif_to_psd(pil_image, source_format, target_format):
     pass
 
-def convert_heif_to_raw(pil_image, source_format, target_format):
+def convert_heif_to_arw(pil_image, source_format, target_format):
     pass
 
 def convert_heif_to_bmp(pil_image, source_format, target_format):
@@ -383,7 +389,7 @@ def convert_indd_to_tiff(pil_image, source_format, target_format):
 def convert_indd_to_psd(pil_image, source_format, target_format):
     pass
 
-def convert_indd_to_raw(pil_image, source_format, target_format):
+def convert_indd_to_arw(pil_image, source_format, target_format):
     pass
 
 def convert_indd_to_bmp(pil_image, source_format, target_format):
@@ -393,30 +399,35 @@ def convert_indd_to_heif(pil_image, source_format, target_format):
     pass
 
 def convert_png_to_png(pil_image, source_format, target_format):
-    pass
+    pil_image = convert_to_rgb_if_not(pil_image)
+    return convert_image_to_target(pil_image, source_format, target_format)
 
 def convert_jpg_to_jpg(pil_image, source_format, target_format):
-    pass
+    pil_image = convert_to_rgb_if_not(pil_image)
+    return convert_image_to_target(pil_image, source_format, target_format)
 
 def convert_jpeg_to_jpeg(pil_image, source_format, target_format):
-    pass
+    pil_image = convert_to_rgb_if_not(pil_image)
+    return convert_image_to_target(pil_image, source_format, target_format)
+
 
 def convert_gif_to_gif(pil_image, source_format, target_format):
-    pass
+    pil_image = convert_to_rgb_if_not(pil_image)
+    return convert_image_to_target(pil_image, source_format, target_format)
+
 
 def convert_webp_to_webp(pil_image, source_format, target_format):
-    pass
+    pil_image = convert_to_rgb_if_not(pil_image)
+    return convert_image_to_target(pil_image, source_format, target_format)
 
 def convert_tiff_to_tiff(pil_image, source_format, target_format):
-    pass
+    pil_image = convert_to_rgb_if_not(pil_image)
+    return convert_image_to_target(pil_image, source_format, target_format)
 
 def convert_psd_to_psd(pil_image, source_format, target_format):
     pass
 
-def convert_raw_to_raw(pil_image, source_format, target_format):
-    pass
-
-def convert_bmp_to_bmp(pil_image, source_format, target_format):
+def convert_arw_to_arw(pil_image, source_format, target_format):
     pass
 
 def convert_heif_to_heif(pil_image, source_format, target_format):
@@ -424,3 +435,32 @@ def convert_heif_to_heif(pil_image, source_format, target_format):
 
 def convert_indd_to_indd(pil_image, source_format, target_format):
     pass
+
+
+def convert_bmp_to_bmp(pil_image, source_format, target_format):
+    pil_image = convert_to_rgb_if_not(pil_image)
+    return convert_image_to_target(pil_image, source_format, target_format)
+
+def convert_bmp_to_png(pil_image, source_format, target_format):
+    pil_image = convert_to_rgb_if_not(pil_image)
+    return convert_image_to_target(pil_image, source_format, target_format)
+
+
+def convert_bmp_to_jpeg(pil_image, source_format, target_format):
+    pil_image = convert_to_rgb_if_not(pil_image)
+    return convert_image_to_target(pil_image, source_format, target_format)
+
+
+def convert_bmp_to_gif(pil_image, source_format, target_format):
+    pil_image = convert_to_rgb_if_not(pil_image)
+    return convert_image_to_target(pil_image, source_format, target_format)
+
+
+def convert_bmp_to_webp(pil_image, source_format, target_format):
+    pil_image = convert_to_rgb_if_not(pil_image)
+    return convert_image_to_target(pil_image, source_format, target_format)
+
+
+def convert_bmp_to_tiff(pil_image, source_format, target_format):
+    pil_image = convert_to_rgb_if_not(pil_image)
+    return convert_image_to_target(pil_image, source_format, target_format)

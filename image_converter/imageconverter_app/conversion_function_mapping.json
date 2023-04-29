@@ -7,7 +7,7 @@
       "webp":"convert_jpg_to_webp",
       "tiff":"convert_jpg_to_tiff",
       "psd":"convert_jpg_to_psd",
-      "raw":"convert_jpg_to_raw",
+      "arw":"convert_jpg_to_arw",
       "bmp":"convert_jpg_to_bmp",
       "heif":"convert_jpg_to_heif",
       "indd":"convert_jpg_to_indd"
@@ -20,7 +20,7 @@
       "webp":"convert_jpeg_to_webp",
       "tiff":"convert_jpeg_to_tiff",
       "psd":"convert_jpeg_to_psd",
-      "raw":"convert_jpeg_to_raw",
+      "arw":"convert_jpeg_to_arw",
       "bmp":"convert_jpeg_to_bmp",
       "heif":"convert_jpeg_to_heif",
       "indd":"convert_jpeg_to_indd"
@@ -33,7 +33,7 @@
       "webp":"convert_png_to_webp",
       "tiff":"convert_png_to_tiff",
       "psd":"convert_png_to_psd",
-      "raw":"convert_png_to_raw",
+      "arw":"convert_png_to_arw",
       "bmp":"convert_png_to_bmp",
       "heif":"convert_png_to_heif",
       "indd":"convert_png_to_indd"
@@ -46,7 +46,7 @@
       "webp":"convert_gif_to_webp",
       "tiff":"convert_gif_to_tiff",
       "psd":"convert_gif_to_psd",
-      "raw":"convert_gif_to_raw",
+      "arw":"convert_gif_to_arw",
       "bmp":"convert_gif_to_bmp",
       "heif":"convert_gif_to_heif",
       "indd":"convert_gif_to_indd"
@@ -59,7 +59,7 @@
       "gif":"convert_webp_to_gif",
       "tiff":"convert_webp_to_tiff",
       "psd":"convert_webp_to_psd",
-      "raw":"convert_webp_to_raw",
+      "arw":"convert_webp_to_arw",
       "bmp":"convert_webp_to_bmp",
       "heif":"convert_webp_to_heif",
       "indd":"convert_webp_to_indd"
@@ -72,7 +72,7 @@
       "gif":"convert_tiff_to_gif",
       "webp":"convert_tiff_to_webp",
       "psd":"convert_tiff_to_psd",
-      "raw":"convert_tiff_to_raw",
+      "arw":"convert_tiff_to_arw",
       "bmp":"convert_tiff_to_bmp",
       "heif":"convert_tiff_to_heif",
       "indd":"convert_tiff_to_indd"
@@ -85,23 +85,23 @@
       "gif":"convert_psd_to_gif",
       "webp":"convert_psd_to_webp",
       "tiff":"convert_psd_to_tiff",
-      "raw":"convert_psd_to_raw",
+      "arw":"convert_psd_to_arw",
       "bmp":"convert_psd_to_bmp",
       "heif":"convert_psd_to_heif",
       "indd":"convert_psd_to_indd"
    },
-   "raw":{
-      "jpg":"convert_raw_to_jpg",
-      "raw":"convert_raw_to_raw",
-      "jpeg":"convert_raw_to_jpeg",
-      "png":"convert_raw_to_png",
-      "gif":"convert_raw_to_gif",
-      "webp":"convert_raw_to_webp",
-      "tiff":"convert_raw_to_tiff",
-      "psd":"convert_raw_to_psd",
-      "bmp":"convert_raw_to_bmp",
-      "heif":"convert_raw_to_heif",
-      "indd":"convert_raw_to_indd"
+   "arw":{
+      "jpg":"convert_arw_to_jpg",
+      "arw":"convert_arw_to_arw",
+      "jpeg":"convert_arw_to_jpeg",
+      "png":"convert_arw_to_png",
+      "gif":"convert_arw_to_gif",
+      "webp":"convert_arw_to_webp",
+      "tiff":"convert_arw_to_tiff",
+      "psd":"convert_arw_to_psd",
+      "bmp":"convert_arw_to_bmp",
+      "heif":"convert_arw_to_heif",
+      "indd":"convert_arw_to_indd"
    },
    "bmp":{
       "jpg":"convert_bmp_to_jpg",
@@ -112,7 +112,7 @@
       "webp":"convert_bmp_to_webp",
       "tiff":"convert_bmp_to_tiff",
       "psd":"convert_bmp_to_psd",
-      "raw":"convert_bmp_to_raw",
+      "arw":"convert_bmp_to_arw",
       "heif":"convert_bmp_to_heif",
       "indd":"convert_bmp_to_indd"
    },
@@ -125,7 +125,7 @@
       "webp":"convert_heif_to_webp",
       "tiff":"convert_heif_to_tiff",
       "psd":"convert_heif_to_psd",
-      "raw":"convert_heif_to_raw",
+      "arw":"convert_heif_to_arw",
       "bmp":"convert_heif_to_bmp",
       "indd":"convert_heif_to_indd"
    },
@@ -138,7 +138,7 @@
       "webp":"convert_indd_to_webp",
       "tiff":"convert_indd_to_tiff",
       "psd":"convert_indd_to_psd",
-      "raw":"convert_indd_to_raw",
+      "arw":"convert_indd_to_arw",
       "bmp":"convert_indd_to_bmp",
       "heif":"convert_indd_to_heif"
    }

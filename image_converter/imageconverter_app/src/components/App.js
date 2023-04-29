@@ -6,7 +6,7 @@ import './styles.css';
 import JSZip from 'jszip';
 import ImageToPDFConverter from "./Image_to_pdf_converter";
 
-const allowedFormats = ['jpg', 'jpeg', 'png', 'gif', 'webp', 'tiff', 'psd', 'raw', 'bmp', 'heif', 'indd'];
+const allowedFormats = ['jpeg', 'png', 'gif', 'webp', 'tiff','jpg', 'bmp'];
 
 function App() {
   const inputRef = useRef(null);
@@ -208,7 +208,7 @@ const handleZipDownload = () => {
       WebkitTextFillColor: "transparent",
      }}>
       Image Format Converter
-      <p className="note-paragraph">Allowed Formats - 'jpg', 'jpeg', 'png', 'gif', 'webp', 'tiff', 'psd', 'raw', 'bmp', 'heif', 'indd'</p>
+      <p className="note-paragraph">Allowed Formats - 'jpg', 'jpeg', 'png', 'gif', 'webp', 'tiff','bmp'</p>
     </h2>
 
     <div className="image-converter">
@@ -223,6 +223,7 @@ const handleZipDownload = () => {
 
               <input id="file-input-button" type="file" accept="image/*" multiple  ref={inputRef} onChange={handleFileInputChange} className="file_input"/>
 <p>Drag and drop images in grey area OR Select files</p>
+<p>(Allowed Maximum 9 Images)</p>
           </div>
 
         {files.length > 0 &&
@@ -248,7 +249,7 @@ const handleZipDownload = () => {
         <div style={{ display: "flex", flexDirection: "row", flexWrap: "wrap" }}>
 
         <div style={{ flex: 1, width:'50%'}}>
-            <h4 style={{margin:0}}>Select format to convert all files</h4>
+            <h4 style={{margin:0}}>Select format to convert all files to</h4>
         </div>
 
         <div style={{ flex: 1, width:'50%'}}>
