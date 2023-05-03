@@ -14,12 +14,14 @@ function App() {
   const [formatTo, setFormatTo] = useState('');
   const [convertedImgArr, setConvertedImgArr] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
+  const [outputImageSectionShow, setOutputImageSectionShow] = useState(false);
 
   const clearStates = () => {
       setConvertedImgArr([]);
       setFiles([]);
       setFormatTo('');
       setIsLoading(false);
+      setOutputImageSectionShow(false);
       inputRef.current.value = null;
     };
 
@@ -60,6 +62,7 @@ function App() {
   };
 
   const handleToFormatChange = (event, index) => {
+  setOutputImageSectionShow(false);
     const newFiles = [...files];
     newFiles[index].toFormat = event.target.value;
     setFiles(newFiles);
@@ -67,6 +70,7 @@ function App() {
   };
 
   const handleFormatToChange = (event) => {
+  setOutputImageSectionShow(false);
     const newFiles = [...files];
     for (let i = 0; i < newFiles.length; i++) {
       newFiles[i].toFormat = event.target.value;
@@ -187,6 +191,7 @@ const handleZipDownload = () => {
           }
         }).then(response => {
           console.log(response.data);
+          setOutputImageSectionShow(true);
           setConvertedImgArr(response.data.converted_image);
           setIsLoading(false);
         })
@@ -243,17 +248,16 @@ const handleZipDownload = () => {
       </div></div>
     }
         </div>
-
                </div>
 
         <div style={{ display: "flex", flexDirection: "row", flexWrap: "wrap" }}>
 
         <div style={{ flex: 1, width:'50%'}}>
-            <h4 style={{margin:0}}>Select format to convert all files to</h4>
+            <h4 style={{margin:0}}>Select single format to convert all files to</h4>
         </div>
 
         <div style={{ flex: 1, width:'50%'}}>
-            <select value={formatTo} onChange={handleFormatToChange} style={{fontSize:'0.7rem'}}>
+            <select value={formatTo} onChange={handleFormatToChange} style={{fontSize:'0.7rem'}} disabled={files.length>0 ?false:true} title="Select at least one image">
               <option value="">Select Format</option>
               {allowedFormats.map((format, index) => (
                 <option key={index} value={format}>{format.toUpperCase()}</option>
@@ -266,12 +270,14 @@ const handleZipDownload = () => {
 
         </div>
 
-        <div style={{ flex: 1, width:'50%'}}>
+        <div disabled={isLoading} style={{ flex: 1, width:'50%'}}>
            <button onClick={clearStates} style={{ flex: 1, margin: 5}}>
                     Reset
                   </button>
         </div>
+
                </div>
+
       </div>
       </div>
 
@@ -279,7 +285,7 @@ const handleZipDownload = () => {
 
       <div className="form" style={{boxShadow: 'none'}}>
         <div className="form-group" style={{ flex: 1, margin: 5}}>
-        {convertedImgArr.length > 0 &&
+        {convertedImgArr.length > 0 && outputImageSectionShow &&
         <div>
         <button onClick={handleZipDownload}>Download All in Zip</button>
           <div className="Input_imgs_container">
@@ -301,6 +307,49 @@ const handleZipDownload = () => {
 
 <p className="note-paragraph">Maximum 9 files are allowed.<br/>You can select a common Format To Convert for all files.<br/>OR<br/>You can select a Format To Convert individually for any file after file upload!</p>
 </div>
+
+<div>
+      <div
+        style={{
+          justifyContent: "center",
+          alignItems: "center",
+          background: "linear-gradient(to right, #8b008b, #ff1493)",
+          color: "#fff",
+          padding: "2rem",
+        }}
+      >
+        <div style={{textAlign: "center" }}>
+        <h2 style={{ color: "#fff"}}>
+          ImageConvertZone.com
+        </h2>
+          <p>
+            We at ImageConvertZone.com are dedicated to providing fast and
+            secure image format conversion services. Our app allows you to
+            convert your images from one format to another without the need to
+            store your images on our servers. This ensures that your images are
+            always secure and only you have access to them.
+          </p>
+          <p>
+            Our app supports a wide range of image formats including JPG, JPEG,
+            PNG, GIF, WebP, TIFF, and BMP. Simply select the image format you
+            want to convert from and the format you want to convert to, and we
+            will do the rest.
+          </p>
+          <p>
+            At ImageConvertZone.com, we understand the importance of your data
+            and we take data security and reliability very seriously. That's why
+            we have designed our app to ensure that your images are never stored
+            on our servers.
+          </p>
+          <p>
+            Thank you for choosing ImageConvertZone.com for your image format
+            conversion needs. If you have any questions or feedback, please feel
+            free to contact us at kamalims62@gmail.com.
+          </p>
+        </div>
+      </div>
+    </div>
+
 </div>
 );
 }

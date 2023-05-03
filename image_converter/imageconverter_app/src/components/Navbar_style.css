@@ -41,20 +41,39 @@ display: none;
 }
 
 @media screen and (max-width: 768px) {
+
+.navbar-links{
+display: none !important;
+}
+.navbar-links.active li a{
+color: black;
+margin:0 !important;
+}
+
+.navbar-links.active li {
+padding-top: 5px;
+padding-bottom:5px;
+text-align: left;
+}
+
 .navbar-toggle {
 display: block;
 }
 
-.navbar-links {
-display: none;
+.navbar-links.active {
+display: block !important;
+align-items: left !important;
 position: absolute;
-top: 60px;
-left: 0;
+top: 3rem;
 right: 0;
 background-color: #fff;
 padding: 20px;
 box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+flex-direction: column !important;
+width: 50%;
 }
+
+
 
 .navbar-links.active {
 display: flex;
@@ -107,3 +126,5 @@ transition: color 0.3s ease-in-out;
 .navbar-icons a:hover {
 color: #f5f5f5;
 }
+
+

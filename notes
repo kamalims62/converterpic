@@ -1,3 +1,6 @@
 Chat-GPT query for this project--
 
 create image converter api which return converted images in django without storing images. Create separate api for different formates . for example- from A to B , possible values for A are JPG,PNG,GIF,WEBP,TIFF,PSD,RAW,BMP,HEIF,INDD and possible values for B are JPG,PNG,GIF,WEBP,TIFF,PSD,RAW,BMP,HEIF,INDD
+
+
+https://stackoverflow.com/questions/47803081/certbot-apache-error-name-duplicates-previous-wsgi-daemon-definition
