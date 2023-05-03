@@ -250,27 +250,34 @@ const handleZipDownload = () => {
         </div>
                </div>
 
-        <div style={{ display: "flex", flexDirection: "row", flexWrap: "wrap" }}>
 
-        <div style={{ flex: 1, width:'50%'}}>
-            <h4 style={{margin:0}}>Select single format to convert all files to</h4>
-        </div>
+<div style={{ }}>
+            <h4 style={{margin:0}}>(Optional) If multiple images uploaded- Select single format to convert all files to</h4>
+</div>
 
-        <div style={{ flex: 1, width:'50%'}}>
+<div style={{ }}>
             <select value={formatTo} onChange={handleFormatToChange} style={{fontSize:'0.7rem'}} disabled={files.length>0 ?false:true} title="Select at least one image">
               <option value="">Select Format</option>
               {allowedFormats.map((format, index) => (
                 <option key={index} value={format}>{format.toUpperCase()}</option>
               ))}
             </select>
-        </div>
+ </div>
 
-        <div style={{ flex: 1, width:'50%'}}>
+ <div className="loading-container" style={{visibility:isLoading?'visible':'hidden'}}>
+                  <div className="loading-bar">
+                    <div className="progress"></div>
+                  </div>
+                  <div className="progress-label">Converting...</div>
+                </div>
+        <div style={{ display: "flex", flexDirection: "row", flexWrap: "wrap" , paddingBottom:'15px'}}>
+
+        <div style={{ flex: 1, width:'100%'}}>
             <button disabled={isLoading} onClick={handleSubmit} style={{ flex: 1, margin: 5}}>{isLoading ? 'Converting...' : 'Convert'}</button>
 
         </div>
 
-        <div disabled={isLoading} style={{ flex: 1, width:'50%'}}>
+        <div disabled={isLoading} style={{ flex: 1, width:'100%'}}>
            <button onClick={clearStates} style={{ flex: 1, margin: 5}}>
                     Reset
                   </button>
