@@ -5,6 +5,7 @@ import Navbar from "./Navbar";
 import './styles.css';
 import JSZip from 'jszip';
 import ImageToPDFConverter from "./Image_to_pdf_converter";
+import Tooltip from './Tooltip';
 
 const allowedFormats = ['jpeg', 'png', 'gif', 'webp', 'tiff','jpg', 'bmp'];
 
@@ -207,19 +208,36 @@ const handleZipDownload = () => {
   <Navbar />
 
   <div className="image-converter_outer">
-  <h2 style={{
-      background: "linear-gradient(to right, #FFB6C1, #87CEFA)",
-      WebkitBackgroundClip: "text",
-      WebkitTextFillColor: "transparent",
-     }}>
-      Image Format Converter
-      <p className="note-paragraph">Allowed Formats - 'jpg', 'jpeg', 'png', 'gif', 'webp', 'tiff','bmp'</p>
-    </h2>
+
+  <div className="all_feature_button_container">
+        <a href="#" className="all_feature_button">
+        <span style={{background: "limegreen"}} className="feature_status_button">Available</span>
+        Image Format Converter
+        </a>
+        <a href="#" className="all_feature_button">
+        <span style={{background: "#f7b731"}} className="feature_status_button">Coming Soon</span>
+        Image To PDF Converter</a>
+        <a href="#" className="all_feature_button">
+        <span style={{background: "#f7b731"}} className="feature_status_button">Coming Soon</span>
+        Image Resize/Compress</a>
+        <a href="#" className="all_feature_button">
+        <span style={{background: "#f7b731"}} className="feature_status_button">Coming Soon</span>
+        Image Background Removal</a>
+        <a href="#" className="all_feature_button">
+        <span style={{background: "#f7b731"}} className="feature_status_button">Coming Soon</span>
+        Image Background Transform</a>
+        <a href="#" className="all_feature_button">
+        <span style={{background: "#f7b731"}} className="feature_status_button">Coming Soon</span>
+        Image Text Extraction</a>
+      </div>
 
     <div className="image-converter">
-       <div className="subsection">
-      <div className="form">
 
+       <div className="subsection">
+      <div className="form" style={{padding:'1rem'}}>
+<legend style={{fontSize: '20px',color: '#333',fontFamily: 'Arial, sans-serif',fontWeight: 'bold',textShadow: '1px 1px #ccc'}}>Image Format Converter</legend>
+
+<Tooltip instructions="Maximum 9 files are allowed.\nYou can select a common Format To Convert for all files.\nOR\nYou can select a Format To Convert individually for any file after file upload!" />
       <div style={{ display: "flex", flexDirection: "column", flexWrap: "wrap" }}>
 
 
@@ -270,7 +288,7 @@ const handleZipDownload = () => {
                   </div>
                   <div className="progress-label">Converting...</div>
                 </div>
-        <div style={{ display: "flex", flexDirection: "row", flexWrap: "wrap" , paddingBottom:'15px'}}>
+        <div style={{ display: "flex", flexDirection: "row", flexWrap: "wrap"}}>
 
         <div style={{ flex: 1, width:'100%'}}>
             <button disabled={isLoading} onClick={handleSubmit} style={{ flex: 1, margin: 5}}>{isLoading ? 'Converting...' : 'Convert'}</button>
@@ -311,51 +329,45 @@ const handleZipDownload = () => {
 
   </div>
 </div>
-
-<p className="note-paragraph">Maximum 9 files are allowed.<br/>You can select a common Format To Convert for all files.<br/>OR<br/>You can select a Format To Convert individually for any file after file upload!</p>
 </div>
 
-<div>
-      <div
-        style={{
-          justifyContent: "center",
-          alignItems: "center",
-          background: "linear-gradient(to right, #8b008b, #ff1493)",
-          color: "#fff",
-          padding: "2rem",
-        }}
-      >
-        <div style={{textAlign: "center" }}>
-        <h2 style={{ color: "#fff"}}>
-          ImageConvertZone.com
-        </h2>
-          <p>
+
+<div style={{ display: "flex", flexDirection: "row", flexWrap: "wrap", padding:'4rem'}}>
+
+        <div style={{ flex: 1, width:'100%', textAlign:'center'}}>
+        <img style={{height:'10rem', width:'20rem'}}src='static/images/logo.svg' alt="ImageConverterZone" />
+        <p>&copy; 2023 imageconvertzone.com. All rights reserved.</p>
+        </div>
+
+        <div style={{ flex: 2, width:'100%', textAlign:'left'}}>
+          <p className='pFooter'>
             We at ImageConvertZone.com are dedicated to providing fast and
             secure image format conversion services. Our app allows you to
             convert your images from one format to another without the need to
             store your images on our servers. This ensures that your images are
             always secure and only you have access to them.
           </p>
-          <p>
+          <p className='pFooter'>
             Our app supports a wide range of image formats including JPG, JPEG,
             PNG, GIF, WebP, TIFF, and BMP. Simply select the image format you
             want to convert from and the format you want to convert to, and we
             will do the rest.
           </p>
-          <p>
+          <p className='pFooter'>
             At ImageConvertZone.com, we understand the importance of your data
             and we take data security and reliability very seriously. That's why
             we have designed our app to ensure that your images are never stored
             on our servers.
           </p>
-          <p>
+          <p className='pFooter'>
             Thank you for choosing ImageConvertZone.com for your image format
             conversion needs. If you have any questions or feedback, please feel
             free to contact us at kamalims62@gmail.com.
           </p>
+
         </div>
-      </div>
-    </div>
+
+</div>
 
 </div>
 );
