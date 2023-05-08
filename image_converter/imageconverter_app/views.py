@@ -1,16 +1,70 @@
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from .conversion_functions import *
+from .utility_functions import image_compression
 from PIL import Image as PilImage
 from io import BytesIO
 import json
 import os
-from django.shortcuts import render
+from django.shortcuts import render, redirect
+from rest_framework import status
 
 
 @api_view(['GET'])
 def index(request):
     return render(request, 'imageconverter_app/index.html', {})
+
+
+@api_view(['GET', 'POST'])
+def compress_image(request):
+    if request.method == 'GET':
+        return redirect('index')
+
+    elif request.method == 'POST':
+        # Get image and metadata from request
+        try:
+            print('hello 1')
+            image = request.FILES.get('image')
+            metadata_str = request.POST.get('metadata')
+        except Exception as e:
+            return Response({"error": "Failed to retrieve image or metadata."}, status=status.HTTP_400_BAD_REQUEST)
+
+        # Parse metadata string to dictionary
+        metadata = {}
+        if metadata_str:
+            try:
+                metadata = json.loads(metadata_str)
+            except json.JSONDecodeError:
+                return Response({'error': 'Invalid metadata format'}, status=status.HTTP_400_BAD_REQUEST)
+
+        # Validate image format and size
+        if not image:
+            return Response({'error': 'No image file was provided'}, status=status.HTTP_400_BAD_REQUEST)
+
+        allowed_formats = ['jpeg', 'png', 'gif', 'webp', 'tiff', 'jpg', 'bmp']
+        if image.content_type.lower().split('/')[1] not in allowed_formats:
+            return Response({'error': 'Invalid image format'}, status=status.HTTP_400_BAD_REQUEST)
+
+        if image.size > 10 * 1024 * 1024:  # 10 MB limit
+            return Response({'error': 'Image size too large'}, status=status.HTTP_400_BAD_REQUEST)
+
+        # Get compression quality from metadata or default to 70
+        compression_quality = metadata.get('compression_quality', 70)
+        print('hello 1')
+
+        # Compress image and encode as base64 string
+        try:
+            print(image, compression_quality)
+            compressed_image_data = image_compression(image, compression_quality)
+            compressed_image_base64 = compressed_image_data['compressed_image_data']
+            compression_quality = compressed_image_data['compression_quality']
+        except ValueError as e:
+            return Response({'error': str(e)}, status=status.HTTP_400_BAD_REQUEST)
+        except Exception as e:
+            return Response({'error': 'Failed to compress image'}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+
+        # Return compressed image data and compression quality in response
+        return Response({'compressed_image_data': compressed_image_base64, 'compression_quality': compression_quality})
 
 
 # Open the JSON file
@@ -66,27 +120,3 @@ def convert_image(request):
     print(len(converted_images))
     response_data = {'converted_image': converted_images}
     return Response(response_data, status=200)
-
-
-
-
-
-
-    # with PilImage.open(file_obj) as pil_image:
-    #     # if pil_image.mode not in ('RGB', 'RGBA'):
-    #     #     pil_image = pil_image.convert('RGB')
-    #     print('here1............................................')
-    #     print(pil_image.format)
-    #     if source_format == 'png' and target_format == 'jpeg':
-    #         converted_image = pil_image.convert('CMYK')
-    #     if source_format == 'jpeg' and target_format == 'png':
-    #         if pil_image.mode != "RGBA":
-    #             converted_image = pil_image.convert("RGBA")
-    #     converted_image = pil_image.convert(target_format.upper())
-    #     print('here2..............................................')
-    #     buffer = BytesIO()
-    #     converted_image.save(buffer, format=target_format.upper())
-    #     converted_image_str = base64.b64encode(buffer.getvalue()).decode('utf-8')
-    #
-    # response_data = {'converted_image': converted_image_str}
-    # return Response(response_data, status=200)
