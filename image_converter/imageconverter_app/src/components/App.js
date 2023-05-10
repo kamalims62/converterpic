@@ -4,7 +4,7 @@ import axios from 'axios';
 import Navbar from "./Navbar";
 import './styles.css';
 import JSZip from 'jszip';
-import ImageToPDFConverter from "./Image_to_pdf_converter";
+import Image_to_pdf from "./Image_to_pdf_converter";
 import Image_format_converter from "./Image_format_converter";
 import Compress_image from "./Compress_image";
 import Footer_main from "./Footer_main";
@@ -33,8 +33,8 @@ function App() {
         <span style={{background: "limegreen"}} className="feature_status_button">Available</span>
         Image Resize/Compress
         </Link>
-        <Link to="/" className="all_feature_button" onClick={handleClick}>
-        <span style={{background: "#f7b731"}} className="feature_status_button">Coming Soon</span>
+        <Link to="/Image_to_pdf" className="all_feature_button" onClick={handleClick}>
+        <span style={{background: "limegreen"}} className="feature_status_button">Available</span>
         Image To PDF Converter
         </Link>
         <Link to="/" className="all_feature_button" onClick={handleClick}>
@@ -57,6 +57,7 @@ function App() {
   <Routes>
     <Route exact path="/" element={<Image_format_converter />} />
     <Route path="/compress_image" element={<Compress_image />} />
+    <Route path="/Image_to_pdf" element={<Image_to_pdf />} />
   </Routes>
 </div>
 <Footer_main/>

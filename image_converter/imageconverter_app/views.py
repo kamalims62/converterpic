@@ -8,6 +8,9 @@ import json
 import os
 from django.shortcuts import render, redirect
 from rest_framework import status
+from PyPDF2 import PdfReader, PdfMerger
+from rest_framework.exceptions import ParseError, APIException
+from django.http import HttpResponse
 
 
 @api_view(['GET'])
@@ -120,3 +123,50 @@ def convert_image(request):
     print(len(converted_images))
     response_data = {'converted_image': converted_images}
     return Response(response_data, status=200)
+
+
+@api_view(['GET', 'POST'])
+def Image_to_pdf(request):
+    if request.method == 'GET':
+        return redirect('index')
+
+    elif request.method == 'POST':
+            # Get the image files from the request
+        return images_to_pdf(request)
+
+def images_to_pdf(request):
+    files = request.FILES.getlist('file')
+    print(len(files))
+    merger = PdfMerger()
+    for file in files:
+        pdf_bytes = convert_image_to_pdf(file)
+        pdf_reader = PdfReader(BytesIO(pdf_bytes))
+        print(len(pdf_reader.pages))
+        if len(pdf_reader.pages) == 0:
+            return Response({'error': 'Failed to convert one or more image files to PDF.'}, status=400)
+
+        merger.append(pdf_reader)
+    output_buffer = BytesIO()
+    merger.write(output_buffer)
+    output_buffer.seek(0)
+    response = HttpResponse(output_buffer, content_type='application/pdf')
+    response['Content-Disposition'] = 'attachment; filename="converted.pdf"'
+    return response
+
+def convert_image_to_pdf(image_file):
+    from PIL import Image
+    import tempfile
+
+    with BytesIO() as f:
+        image = Image.open(image_file)
+        pdf_width, pdf_height = (8.5 * 72, 11 * 72)  # 1 inch = 72 points
+        margin = 72  # 1 inch margin
+        image_width, image_height = image.size
+        if image_width > pdf_width - 2 * margin or image_height > pdf_height - 2 * margin:
+            # Resize the image to fit within the page margins
+            image.thumbnail((pdf_width - 2 * margin, pdf_height - 2 * margin))
+        pdf_image = Image.new('RGB', (int(pdf_width), int(pdf_height)), (255, 255, 255))  # Create a white background for the PDF page
+        pdf_image.paste(image, ((int(pdf_width) - int(image.width)) // 2, (int(pdf_height) - int(image.height)) // 2))  # Center the image on the page
+        pdf_image.save(f, 'PDF', resolution=100, save_all=True)
+        f.seek(0)
+        return f.read()
