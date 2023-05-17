@@ -6,7 +6,7 @@ function Footer_main() {
         <div style={{ display: "flex", flexDirection: "row", flexWrap: "wrap", padding:'4rem'}}>
 
         <div style={{ flex: 1, width:'100%', textAlign:'center'}}>
-        <img style={{height:'10rem', width:'20rem'}}src='static/images/logo.svg' alt="ImageConverterZone" />
+        <img style={{height:'10rem', width:'100%'}}src='static/images/logo.svg' alt="ImageConverterZone" />
         <p>&copy; 2023 imageconvertzone.com. All rights reserved.</p>
         </div>
 

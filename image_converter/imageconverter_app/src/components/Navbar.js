@@ -12,7 +12,7 @@ function App() {
 
   return (
     <div className="App">
-      <nav className="navbar" style={{ background: 'linear-gradient(to right, #0072ff, #00c6ff)' }}>
+      <nav className="navbar">
         <div className="navbar-container container">
           <a href="#" className="navbar-brand">
             <img className="navbar-brand-image" src='static/images/logo.svg' alt="ImageConverterZone" />

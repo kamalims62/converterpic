@@ -38,15 +38,15 @@ function App() {
         Image To PDF Converter
         </Link>
         <Link to="/" className="all_feature_button" onClick={handleClick}>
-        <span style={{background: "#f7b731"}} className="feature_status_button">Coming Soon</span>
+        <span style={{background: "#f7b731"}} className="feature_status_button">Soon</span>
         Image Background Removal
         </Link>
         <Link to="/" className="all_feature_button" onClick={handleClick}>
-        <span style={{background: "#f7b731"}} className="feature_status_button">Coming Soon</span>
+        <span style={{background: "#f7b731"}} className="feature_status_button">Soon</span>
         Image Background Transform
         </Link>
         <Link to="/" className="all_feature_button" onClick={handleClick}>
-        <span style={{background: "#f7b731"}} className="feature_status_button">Coming Soon</span>
+        <span style={{background: "#f7b731"}} className="feature_status_button">Soon</span>
         Image Text Extraction
         </Link>
   </div>
