@@ -1,27 +1,73 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import './styles.css';
-function Footer_main() {
+function Footer_main(handleClick) {
 
     return(
-        <div style={{ display: "flex", flexDirection: "row", flexWrap: "wrap", padding:'4rem'}}>
+        <div className='footer_outer'>
 
-        <div style={{ flex: 1, width:'100%', textAlign:'center'}}>
-        <img style={{height:'10rem', width:'100%'}}src='static/images/logo.svg' alt="ImageConverterZone" />
-        <p>&copy; 2023 imageconvertzone.com. All rights reserved.</p>
+        <div style={{ flex: 1, width:'100%', textAlign:'left'}}>
+          <p className='pFooter'>
+          Important Links :
+          </p>
+          
+          <Link to="/"  onClick={handleClick}>
+            <span className="feature_status_button">Available</span>
+            <span>Image Format Converter</span>
+        </Link>
+        <br/><br/>
+        <Link to="/compress_image"  onClick={handleClick}>
+          <span className="feature_status_button">Available</span>
+          <span>Image Compress</span>
+        </Link>
+        <br/><br/>
+        <Link to="/resize_image"  onClick={handleClick}>
+          <span className="feature_status_button">Available</span>
+          <span>Image Resize</span>
+        </Link>
+        <br/><br/>
+        <Link to="/Image_to_pdf"  onClick={handleClick}>
+          <span className="feature_status_button">Available</span>
+          <span>Image To PDF Converter</span>
+        </Link>
+        <br/><br/>
+        <Link to="/"  onClick={handleClick}>
+          <span className="feature_status_button">Soon</span>
+          <span>Image Background Removal</span>
+        </Link>
+        <br/><br/>
+        <Link to="/"  onClick={handleClick}>
+          <span className="feature_status_button">Soon</span>
+          <span>Image Background Transform</span>
+        </Link>
+        <br/><br/>
+        <Link to="/"  onClick={handleClick}>
+          <span className="feature_status_button">Soon</span>
+          <span>Image Text Extraction</span>
+        </Link>
+        <br/><br/>
         </div>
 
-        <div style={{ flex: 2, width:'100%', textAlign:'left'}}>
-          <p className='pFooter'>
-          We at ImageConvertZone.com offer a comprehensive range of services to meet your image processing needs. Our fast and secure image format conversion services allow you to easily convert your images from one format to another without compromising on quality.
-In addition to image format conversion, we also provide image compression, resizing, image to PDF conversion, background removal, background transformation, and image text extraction services. With our cutting-edge technology and advanced algorithms, we ensure that your images are processed quickly and efficiently.
+        <div style={{ flex: 1, width:'100%', textAlign:'left'}}>
+        <p className='pFooter'>
+          Contact Details :
+          </p>
 
-          </p>
-          <p className='pFooter'>
-          At ImageConvertZone.com, we are committed to data security and reliability. Our app is designed to ensure that your images are always secure, and we do not store your images on our servers. This means that your data is safe and only you have access to it.
-         </p>
-          <p className='pFooter'>
-          Thank you for choosing ImageConvertZone.com for your image processing needs. If you have any questions or feedback, please feel free to contact us at kamalims62@gmail.com.
-          </p>
+          Email - kamalims62@gmail.com
+          <br/><br/>
+          <Link className='navbar-buttons' to="/about_us" onClick={handleClick}>
+          About Us
+            </Link>
+            <Link className='navbar-buttons' to="/" onClick={handleClick}>
+          Home
+            </Link>
+
+        </div>
+
+        <div style={{ flex: 1, width:'100%', textAlign:'left'}}>
+        <img style={{height:'5rem', width:'50%'}} src='static/images/logo.svg' alt="ImageConverterZone" />
+        <p>&copy; 2023 imageconvertzone.com. All rights reserved.</p>
+        
         </div>
 
 </div>

@@ -170,3 +170,49 @@ def convert_image_to_pdf(image_file):
         pdf_image.save(f, 'PDF', resolution=100, save_all=True)
         f.seek(0)
         return f.read()
+
+
+@api_view(['POST'])
+def resize_image(request):
+    # Check if image file is present in the request
+    if 'image' not in request.FILES:
+        return Response({'error': 'No image file provided'})
+
+    # Get image file from the request
+    image_file = request.FILES['image']
+
+    # Check if width and height are present in the request
+    width = request.data.get('width')
+    height = request.data.get('height')
+
+    if not width or not height:
+        return Response({'error': 'Width and height must be provided'})
+
+    try:
+        # Open the image
+        image = PilImage.open(image_file)
+
+        # Convert RGBA to RGB if necessary
+        if image.mode == 'RGBA':
+            image = image.convert('RGB')
+
+        # Resize the image
+        resized_image = image.resize((int(width), int(height)))
+
+        # Save the resized image to a BytesIO buffer
+        buffer = BytesIO()
+        resized_image.save(buffer, format='JPEG')
+        buffer.seek(0)
+
+        # Encode the byte string as base64
+        encoded_image = base64.b64encode(buffer.getvalue()).decode('utf-8')
+        # Get the resized image dimensions
+        resized_width, resized_height = resized_image.size
+
+        # Return the resized image and dimensions as response
+        return Response({'resized_image': encoded_image, 'resized_width': resized_width, 'resized_height': resized_height})
+
+
+    except Exception as e:
+        error_message = str(e)
+        return Response({'error': error_message})

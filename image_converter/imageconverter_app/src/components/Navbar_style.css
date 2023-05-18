@@ -12,7 +12,7 @@ padding: 0 20px;
 box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
 transition: background-color 0.3s ease-in-out;
 /* background: linear-gradient(to right, #0072ff, #00c6ff); */
-background: black;
+background: white;
 }
 
 .navbar-container {
@@ -24,6 +24,8 @@ max-width: 1200px;
 }
 
 .navbar-brand {
+flex: 70%;
+text-align: left;
 font-size: .1rem;
 font-weight: bold;
 color: #fff;
@@ -132,4 +134,29 @@ color: #f5f5f5;
 .navbar-brand-image{
 height: 3.3rem;
 width: 7rem;
+}
+
+.navbar-buttons{
+    flex: 15%;
+    font-family: 'Roboto', sans-serif;
+    margin: 10px;
+    text-decoration: none;
+    color: white;
+    text-align: center;
+    text-transform: none;
+    white-space: nowrap;
+    background: linear-gradient(to right, #0072ff, #00c6ff);
+    /* background: linear-gradient(to right, #e373e3, #ffa4c9); */
+    /* background: #031dd6; */
+    /* background-color: #0d1296; */
+    border-radius: 12px;
+    padding: .2rem .5rem;
+    font-size: .8rem;
+    font-weight: 700;
+    line-height: 20px;
+    transition: all .2s;
+    position: relative;
+    height: 25px;
+    cursor: pointer;
+
 }

@@ -8,6 +8,8 @@ import Image_to_pdf from "./Image_to_pdf_converter";
 import Image_format_converter from "./Image_format_converter";
 import Compress_image from "./Compress_image";
 import Footer_main from "./Footer_main";
+import ImageUploader from "./resize";
+import About_us from './about_us'
 import Tooltip from './Tooltip';
 import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
 
@@ -26,28 +28,46 @@ function App() {
 
   <div className="all_feature_button_container">
         <Link to="/" className="all_feature_button" onClick={handleClick}>
-        <span style={{background: "limegreen"}} className="feature_status_button">Available</span>
-        Image Format Converter
+        <div className='all_feature_button_inner_div'>
+            <span style={{background: "limegreen"}} className="feature_status_button">Available</span>
+            <span>Image Format Converter</span>
+        </div>
         </Link>
         <Link to="/compress_image" className="all_feature_button" onClick={handleClick}>
-        <span style={{background: "limegreen"}} className="feature_status_button">Available</span>
-        Image Resize/Compress
+        <div className='all_feature_button_inner_div'>
+          <span style={{background: "limegreen"}} className="feature_status_button">Available</span>
+          <span>Image Compress</span>
+        </div>
+        </Link>
+        <Link to="/resize_image" className="all_feature_button" onClick={handleClick}>
+        <div className='all_feature_button_inner_div'>
+          <span style={{background: "limegreen"}} className="feature_status_button">Available</span>
+          <span>Image Resize</span>
+        </div>
         </Link>
         <Link to="/Image_to_pdf" className="all_feature_button" onClick={handleClick}>
-        <span style={{background: "limegreen"}} className="feature_status_button">Available</span>
-        Image To PDF Converter
+        <div className='all_feature_button_inner_div'>
+          <span style={{background: "limegreen"}} className="feature_status_button">Available</span>
+          <span>Image To PDF Converter</span>
+        </div>
         </Link>
         <Link to="/" className="all_feature_button" onClick={handleClick}>
-        <span style={{background: "#f7b731"}} className="feature_status_button">Soon</span>
-        Image Background Removal
+        <div className='all_feature_button_inner_div'>
+          <span style={{background: "#f7b731"}} className="feature_status_button">Soon</span>
+          <span>Image Background Removal</span>
+        </div>
         </Link>
         <Link to="/" className="all_feature_button" onClick={handleClick}>
-        <span style={{background: "#f7b731"}} className="feature_status_button">Soon</span>
-        Image Background Transform
+        <div className='all_feature_button_inner_div'>
+          <span style={{background: "#f7b731"}} className="feature_status_button">Soon</span>
+          <span>Image Background Transform</span>
+        </div>
         </Link>
         <Link to="/" className="all_feature_button" onClick={handleClick}>
-        <span style={{background: "#f7b731"}} className="feature_status_button">Soon</span>
-        Image Text Extraction
+        <div className='all_feature_button_inner_div'>
+          <span style={{background: "#f7b731"}} className="feature_status_button">Soon</span>
+          <span>Image Text Extraction</span>
+        </div>
         </Link>
   </div>
 
@@ -58,9 +78,11 @@ function App() {
     <Route exact path="/" element={<Image_format_converter />} />
     <Route path="/compress_image" element={<Compress_image />} />
     <Route path="/Image_to_pdf" element={<Image_to_pdf />} />
+    <Route path="/resize_image" element={<ImageUploader />} />
+    <Route path="/about_us" element={<About_us />} />
   </Routes>
 </div>
-<Footer_main/>
+<Footer_main handleClick/>
 
 </div>
 </Router>
