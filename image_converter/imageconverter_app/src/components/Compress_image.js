@@ -116,6 +116,7 @@ function Compress_image() {
   };
 
   return (
+    <div>
     <div className="image-converter">
 
        <div className="subsection">
@@ -182,9 +183,33 @@ function Compress_image() {
   </div>
 </div>
 
+<div style={{ flex: 1, textAlign:'left', margin:'2.5rem', padding:'2rem'}}>
+  <h2 style={{textAlign:'center'}}>How To Compress Images - All Steps</h2>
+  <p>          
+    <b>Step 1: </b> Open the Image Compression application <a href='https://www.imageconvertzone.com/compress_image'>Click Here</a>.
+    <br/><br/>
+    <b>Step 2: </b> Click on the "Choose File" button to select an image file you want to compress. Only image files (JPEG, PNG, GIF, WEBP, TIFF, JPG, BMP) are allowed.
+    <br/><br/>
+    <b>Step 3: </b> Once the file is selected, you will see the file name and its size displayed below the button.
+    <br/><br/>
+    <b>Step 4: </b> Adjust the compression quality using the range slider labeled "Compression quality." Slide the knob to the left for higher compression and lower image quality, or slide it to the right for lower compression and higher image quality.
+    <br/><br/>
+    <b>Step 5: </b> After adjusting the compression quality, click on the "Compress" button. If the compression process takes some time, a loading bar will be displayed to indicate the progress. The button text will change to "Compressing..." during this process.
+    <br/><br/>
+    <b>Step 6: </b> If there is an error during compression, an error message will be shown. The message will automatically disappear after 5 seconds. You can also manually close the error message by clicking the "X" button.
+    <br/><br/>
+    <b>Step 7: </b> Once the compression is complete, the compressed image will be displayed along with the compression quality and file size below it.
+    <br/><br/>
+    <b>Step 8: </b> If you want to download the compressed image, click on the "Download" button below the image. This will initiate the download of the compressed image file.
+    <br/><br/>
+    <b>Step 9: </b> If you want to compress another image, click on the "Reset" button. This will clear the selected image, compression quality, and the compressed image from the display.
+  </p>
+  <br/><br/>
+  <b>Congratulations! You have successfully compressed the image.</b>
+</div>
 
 
-
+</div>
   );
 }
 

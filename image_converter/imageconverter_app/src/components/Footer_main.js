@@ -48,6 +48,13 @@ function Footer_main(handleClick) {
         <br/><br/>
         </div>
 
+
+        <div style={{ flex: 1, width:'100%', textAlign:'left'}}>
+        <img style={{height:'5rem', width:'50%'}} src='static/images/logo.svg' alt="ImageConverterZone" />
+        <p>&copy; 2023 imageconvertzone.com. All rights reserved.</p>
+        
+        </div>
+
         <div style={{ flex: 1, width:'100%', textAlign:'left'}}>
         <p className='pFooter'>
           Contact Details :
@@ -62,12 +69,6 @@ function Footer_main(handleClick) {
           Home
             </Link>
 
-        </div>
-
-        <div style={{ flex: 1, width:'100%', textAlign:'left'}}>
-        <img style={{height:'5rem', width:'50%'}} src='static/images/logo.svg' alt="ImageConverterZone" />
-        <p>&copy; 2023 imageconvertzone.com. All rights reserved.</p>
-        
         </div>
 
 </div>

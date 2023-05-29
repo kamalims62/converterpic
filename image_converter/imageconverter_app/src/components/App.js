@@ -12,6 +12,8 @@ import ImageUploader from "./resize";
 import About_us from './about_us'
 import Tooltip from './Tooltip';
 import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
+import VideoDownloadForm from './video//VideoDownloadForm';
+import Convert_Pdf_To_Images from "./Convert_Pdf_To_Images";
 
 function App() {
   const sectionRef = useRef(null);
@@ -69,6 +71,20 @@ function App() {
           <span>Image Text Extraction</span>
         </div>
         </Link>
+        <Link to="/YouTubeDownload" className="all_feature_button" onClick={handleClick}>
+        <div className='all_feature_button_inner_div'>
+          <span style={{background: "limegreen"}} className="feature_status_button">Available</span>
+          <span>Download YouTube Video</span>
+        </div>
+        </Link>
+
+        <Link to="/Convert_Pdf_To_Images" className="all_feature_button" onClick={handleClick}>
+        <div className='all_feature_button_inner_div'>
+          <span style={{background: "limegreen"}} className="feature_status_button">Available</span>
+          <span>PDF To Image Converter</span>
+        </div>
+        </Link>
+
   </div>
 
 </div>
@@ -80,6 +96,8 @@ function App() {
     <Route path="/Image_to_pdf" element={<Image_to_pdf />} />
     <Route path="/resize_image" element={<ImageUploader />} />
     <Route path="/about_us" element={<About_us />} />
+    <Route path="/YouTubeDownload" element={<VideoDownloadForm />} />
+    <Route path="/Convert_Pdf_To_Images" element={<Convert_Pdf_To_Images/>} />
   </Routes>
 </div>
 <Footer_main handleClick/>

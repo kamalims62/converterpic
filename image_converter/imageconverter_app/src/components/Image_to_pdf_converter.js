@@ -121,6 +121,7 @@ function Image_to_pdf() {
 
   return (
 
+    <div>
     <div className="image-converter">
 
        <div className="subsection">
@@ -202,6 +203,36 @@ function Image_to_pdf() {
       </div>
 
   </div>
+</div>
+
+
+<div style={{ flex: 1, textAlign: 'left', margin: '2.5rem', padding: '2rem' }}>
+  <h2 style={{ textAlign: 'center' }}>How To Use Image to PDF Converter - All Steps</h2>
+  <p>
+    <b>Step 1:</b> Open the Image to PDF Converter web application <a href='https://www.imageconvertzone.com/Image_to_pdf'>Click Here</a>.
+    <br /><br />
+    <b>Step 2:</b> Drag and drop images into the grey area or click on the "Select files" button to choose image files. You can select multiple images at once.
+    <br /><br />
+    <b>Step 3:</b> The selected images will be displayed below the button, showing their file names and sizes.
+    <br /><br />
+    <b>Step 4:</b> If needed, you can remove the selected images by clicking the "Reset" button.
+    <br /><br />
+    <b>Step 5:</b> Click the "Generate PDF" button to start the conversion process.
+    <br /><br />
+    <b>Step 6:</b> While the PDF is being generated, a loading animation or progress bar may be displayed.
+    <br /><br />
+    <b>Step 7:</b> Once the PDF is generated, a download button will appear. Click on the "Download PDF" button to save the converted PDF file to your device.
+    <br /><br />
+    <b>Step 8:</b> You can also view the generated PDF within the web application using the embedded iframe.
+    <br /><br />
+    <b>Step 9:</b> If any errors occur during the conversion process, an error message will be displayed.
+  </p>
+  <br /><br />
+  <b>Congratulations! You have successfully converted your images to a PDF.</b>
+</div>
+
+
+
 </div>
 );
 }

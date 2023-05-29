@@ -203,7 +203,7 @@ const handleZipDownload = () => {
   };
 
   return (
-
+<div>
     <div className="image-converter">
 
        <div className="subsection">
@@ -299,9 +299,31 @@ const handleZipDownload = () => {
     }
         </div>
       </div>
-
   </div>
 </div>
+
+
+<div style={{ flex: 1, textAlign:'left', margin:'2.5rem', padding:'2rem'}}>
+      <h2 style={{textAlign:'center'}}>How To Convert Image Format - All Steps</h2>
+      <p>          
+         <b>Step 1: </b> Open the Image Format Converter web application <a href='https://www.imageconvertzone.com/'>Click Here</a>.
+          <br/><br/>
+          <b>Step 2: </b>Drag and drop up to 9 images onto the gray area or click on the "Select files" button to choose the images you want to convert. You can only upload image files with formats such as JPEG, PNG, GIF, WEBP, TIFF, JPG, or BMP. If you select more than 9 files, you will be prompted with an alert.
+          <br/><br/>
+          <b>Step 3: </b>After selecting the files, you will see a list of the uploaded images with their file sizes. If you want to convert each file to a different format, select the desired format from the dropdown list next to each image. If you want to convert all the files to the same format, select the desired format from the "Select Format" dropdown list below the uploaded images. Note that the "Select Format" dropdown list will only be enabled if at least one image is uploaded.
+          <br/><br/>
+          <b>Step 4: </b>Once you have selected the format(s) for conversion, click on the "Convert" button. If the conversion process takes some time, a loading bar will be displayed. After the conversion is complete, the converted images will be shown below.
+          <br/><br/>
+          <b>Step 5: </b>If multiple images were converted and you want to download them all, click on the "Download All in Zip" button. This will generate a ZIP file containing all the converted images, which you can then download.
+          <br/><br/>
+          <b>Step 6: </b>If you want to download a single converted image, click on the "Download" button below the respective image. This will initiate the download of that specific image.
+          <br/><br/>
+          <b>Step 7: </b>If you want to start over and clear all the uploaded images and converted results, click on the "Reset" button.
+         </p>
+         <br/><br/>
+         <b>Congratulation !! On Successfully Converting Image Format ( jpeg | png | gif | webp | tiff | jpg | bmp )</b>
+        </div>
+        </div>
 );
 }
 
