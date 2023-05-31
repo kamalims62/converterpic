@@ -13,12 +13,17 @@ const PdfToImageConverter = () => {
   const [pdfFile, setPdfFile] = useState(null);
   const [images, setImages] = useState([]);
   const [errorMessage, setErrorMessage] = useState(null);
+  const [firstPage, setFirstPage] = useState(1);
+  const [lastPage, setLastPage] = useState(5);
+
 
   const clearStates = () => {
     setErrorMessage(null);
     setImages([]);
     setIsLoading(false);
     setPdfFile(null);
+    setFirstPage(1);
+    setLastPage(5);
     inputRef.current.value = null;
   };
 
@@ -34,6 +39,8 @@ const PdfToImageConverter = () => {
         setImages([]);
         setPdfFile(file);
         setIsLoading(false);
+        setFirstPage(1);
+        setLastPage(5);
       } else {
         setPdfFile(null);
         setErrorMessage("Only PDF files are allowed.");
@@ -42,8 +49,8 @@ const PdfToImageConverter = () => {
   };
   
 
-  const convertPdfToImages = async () => {
-
+  const convertPdfToImages = async (event) => {
+    event.preventDefault();
     if (!pdfFile) {
       setErrorMessage('Please select a PDF file.');
       return;
@@ -51,17 +58,37 @@ const PdfToImageConverter = () => {
 
     const formData = new FormData();
     formData.append('pdf_file', pdfFile);
+    formData.append('first_page', firstPage);
+    formData.append('last_page', lastPage);
 
     setIsLoading(true);
 
-    try {
-      const response = await axios.post('Convert_Pdf_To_Images/', formData);
-      setIsLoading(false);
-      setImages(response.data);
-    } catch (error) {
-      setErrorMessage(error);
-      setIsLoading(false);
+
+    axios.post('Convert_Pdf_To_Images/', formData)
+  .then(response => {
+    setIsLoading(false);
+    setImages(response.data);
+  })
+  .catch(error => {
+    if(error.response.data.error){
+      setErrorMessage(error.response.data.error);
+    }else{
+      setErrorMessage('Invalid Input / Something Went Wrong / Tr Again');
     }
+    setIsLoading(false);
+  });
+  event.preventDefault();
+
+// Code here will continue executing immediately after the API call
+
+    // try {
+    //   const response = await axios.post('Convert_Pdf_To_Images/', formData);
+    //   setIsLoading(false);
+    //   setImages(response.data);
+    // } catch (error) {
+    //   setErrorMessage(error);
+    //   setIsLoading(false);
+    // }
   };
 
   const downloadAllImages = () => {
@@ -113,11 +140,35 @@ const PdfToImageConverter = () => {
       <div className="form" style={{padding:'1rem'}}>
 <legend style={{fontSize: '20px',color: '#333',fontFamily: 'Arial, sans-serif',fontWeight: 'bold',textShadow: '1px 1px #ccc'}}>PDF To Image Converter</legend>
       <div style={{ display: "flex", flexDirection: "column", flexWrap: "wrap" }}>
+        
        <div className="form-group" style={{ flex: 1, margin: 5}}>
+       
           <div className="file-input">
               <input id="file-input-button" type="file" accept=".pdf" onChange={handleFileChange}  ref={inputRef} className="file_input"/>
 <p>Drag and drop PDF in grey area OR Select PDF</p>
           </div>
+        </div>
+       <div style={{ flex: 1, width: '100%' }}>
+       <p className='hint_para'>Maximum 50 PDF Pages can be converted at a time.</p>
+       <p className='hint_para'>If Your PDF Pages > 50 then try again by changing First Page & Last Page values.</p>
+       <br/>
+        <label htmlFor="first-page">First Page:</label>
+        <input
+          type="number"
+          id="first-page"
+          value={firstPage}
+          onChange={(e) => setFirstPage(parseInt(e.target.value))}
+          min="1"
+        />
+        &nbsp;&nbsp;
+        <label htmlFor="last-page">Last Page:</label>
+        <input
+          type="number"
+          id="last-page"
+          value={lastPage}
+          onChange={(e) => setLastPage(parseInt(e.target.value))}
+          min={firstPage}
+        />
         </div>
                </div>
 

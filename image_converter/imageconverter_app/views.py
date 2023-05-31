@@ -342,14 +342,44 @@ def convert_pdf_to_images(request):
     if not pdf_file.name.endswith('.pdf'):
         return Response({'error': 'Invalid file format. Only PDF files are allowed.'}, status=status.HTTP_400_BAD_REQUEST)
 
-    max_pages = request.data.get('max_pages', None)
-    if max_pages is not None:
-        try:
-            max_pages = int(max_pages)
-        except ValueError:
-            return Response({'error': 'Invalid max_pages parameter. It should be an integer.'}, status=status.HTTP_400_BAD_REQUEST)
-        if max_pages < 0:
-            return Response({'error': 'Invalid max_pages parameter. It should be a positive integer.'}, status=status.HTTP_400_BAD_REQUEST)
+    start_page = request.data.get('first_page', 0)
+    try:
+        start_page = int(start_page)
+        if start_page < 0:
+            raise ValueError
+    except ValueError:
+        return Response({'error': 'Invalid start_page parameter. It should be a non-negative integer.'}, status=status.HTTP_400_BAD_REQUEST)
+
+    end_page = request.data.get('last_page', start_page+50)
+    try:
+        end_page = int(end_page)
+        if end_page < 0:
+            raise ValueError
+    except ValueError:
+        return Response({'error': 'Invalid end_page parameter. It should be a non-negative integer.'}, status=status.HTTP_400_BAD_REQUEST)
+    
+    
+    try:
+        if end_page - start_page == 0:
+            raise ValueError
+    except ValueError:
+        return Response({'error': 'First Page and Last Page cannot be same'}, status=status.HTTP_400_BAD_REQUEST)
+    
+    try:
+        if start_page == 0:
+            raise ValueError
+    except ValueError:
+        return Response({'error': 'First Page can not be 0'}, status=status.HTTP_400_BAD_REQUEST)
+    
+    try:
+        if end_page < start_page:
+            raise ValueError
+    except ValueError:
+        return Response({'error': 'Last Page cannot be Smaller than First Page.'}, status=status.HTTP_400_BAD_REQUEST)
+
+
+    if end_page is not None and end_page - start_page > 49:
+        end_page = start_page + 49
 
     max_file_size = request.data.get('max_file_size', None)
     if max_file_size is not None:
@@ -372,27 +402,29 @@ def convert_pdf_to_images(request):
         pdf_bytes = pdf_file.read()
         if max_file_size and len(pdf_bytes) > max_file_size:
             return Response({'error': 'The uploaded PDF file exceeds the maximum file size limit.'}, status=status.HTTP_400_BAD_REQUEST)
-
-        pages = convert_from_bytes(pdf_bytes, first_page=0, last_page=max_pages or None)
+        end_page = end_page+1
+        pages = convert_from_bytes(pdf_bytes, first_page=start_page, last_page=end_page or None)
     except Exception as e:
         return Response({'error': f'Error converting PDF: {str(e)}'}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
     images = []
-
+    count = start_page
     for i, page in enumerate(pages):
-        if max_pages and i >= max_pages:
+        if end_page is not None and i >= end_page - start_page:
             break
 
         image_buffer = BytesIO()
         page.save(image_buffer, format='JPEG', quality=quality)
         image_buffer.seek(0)
-        image_data = base64.b64encode(image_buffer.getvalue()).decode('utf-8')
+        image_data = base64.b64encode(image_buffer.getvalue()).decode('utf-8')        
         images.append({
             'image': image_data,
-            'page_number': i + 1,
+            'page_number': count,
         })
+        count = count+1
 
     return Response(images, status=status.HTTP_200_OK)
+
 
 
 
